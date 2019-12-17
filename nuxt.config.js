@@ -26,8 +26,14 @@ module.exports = {
   head: {
     title: TITLE,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { 'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8' },
+      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1' },
+      { name: 'robots', content: 'index, follow' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'
+      },
       {
         hid: 'description',
         name: 'description',
@@ -77,8 +83,7 @@ module.exports = {
       }
     ]
   },
-
-  loading: { color: COLOR },
+  loading: { color: COLOR, height: '3px' },
   css: ['ant-design-vue/dist/antd.css'],
   plugins: [
     '@/plugins/antd-ui',
@@ -86,8 +91,9 @@ module.exports = {
     { src: '~plugins/vue-scroll-reveal', ssr: false },
     '@/plugins/vue-spinner'
   ],
+  pageTransition: 'fade',
   buildModules: [],
-  modules: ['@nuxtjs/pwa'],
+  modules: [],
   env: {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
@@ -98,6 +104,9 @@ module.exports = {
     FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID,
     BASE_URL
+  },
+  styleResources: {
+    scss: ['~assets/scss/index.scss']
   },
   build: {
     extend(config, ctx) {}
