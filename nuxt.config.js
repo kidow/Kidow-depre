@@ -109,6 +109,12 @@ module.exports = {
     scss: ['~assets/scss/index.scss']
   },
   build: {
-    extend(config, ctx) {}
+    extend(config, { loaders }) {
+      loaders.less.javascriptEnabled = true
+      loaders.less.modifyVars = {
+        'primary-color': COLOR,
+        'link-color': COLOR
+      }
+    }
   }
 }
