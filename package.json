@@ -20,6 +20,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/sentry": "^3.0.1",
     "@nuxtjs/sitemap": "^2.0.1",
+    "@nuxtjs/style-resources": "^1.0.0",
     "ant-design-vue": "^1.1.10",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

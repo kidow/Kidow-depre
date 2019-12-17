@@ -93,7 +93,7 @@ module.exports = {
   ],
   pageTransition: 'fade',
   buildModules: [],
-  modules: [],
+  modules: ['@nuxtjs/style-resources'],
   env: {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
