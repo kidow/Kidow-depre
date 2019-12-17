@@ -1,21 +1,41 @@
 {
   "name": "kidow",
   "version": "1.0.0",
-  "description": "Kidow&#39;s Blog v2",
+  "description": "Kidow's Blog v2",
   "author": "kidow",
   "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "serve": "firebase serve --only functions",
+    "shell": "nuxt start",
+    "start": "npm run shell",
+    "deploy": "firebase deploy",
+    "logs": "firebase functions:log"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
-    "ant-design-vue": "^1.1.10",
-    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/device": "^1.2.4",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/moment": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
-    "@nuxtjs/dotenv": "^1.4.0"
+    "@nuxtjs/sentry": "^3.0.1",
+    "@nuxtjs/sitemap": "^2.0.1",
+    "ant-design-vue": "^1.1.10",
+    "express": "^4.17.1",
+    "firebase": "^7.6.0",
+    "firebase-admin": "^8.8.0",
+    "firebase-functions": "^3.3.0",
+    "nanobar": "^0.4.2",
+    "nuxt": "^2.0.0",
+    "open-color": "^1.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "firebase-functions-test": "^0.1.7",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
+  },
+  "engines": {
+    "node": "8"
+  }
 }
