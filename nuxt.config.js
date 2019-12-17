@@ -1,8 +1,24 @@
+require('dotenv').config()
+const {
+  NODE_ENV,
+  SENTRY_DSN,
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_DATABASE_URL,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+  FIREBASE_MEASUREMENT_ID
+} = process.env
+
 const TITLE = 'Kidow Blog'
 const DESCRIPTION = 'Kidow Blog'
 const IMAGE = ''
 const PUBLIC_LINK = 'https://www.kidow.kr'
 const COLOR = '#e8590c'
+const BASE_URL =
+  NODE_ENV === 'production' ? PUBLIC_LINK : 'http://localhost:3000'
 
 module.exports = {
   mode: 'universal',
@@ -34,12 +50,12 @@ module.exports = {
       {
         hid: 'og-image-alt',
         property: 'og:image:alt',
-        content: '###Kidolog###'
+        content: '###Kidow###'
       },
       { hid: 'og-url', property: 'og:url', content: PUBLIC_LINK },
 
       // Twiiter
-      { hid: 'twitter-site', property: 'twitter:site', content: '@mostpeople' },
+      { hid: 'twitter-site', property: 'twitter:site', content: '@kidow' },
       { hid: 'twitter-card', property: 'twitter:card', content: 'summary' },
       { hid: 'twitter-title', property: 'twitter:title', content: TITLE },
       {
@@ -61,11 +77,28 @@ module.exports = {
       }
     ]
   },
+
   loading: { color: COLOR },
   css: ['ant-design-vue/dist/antd.css'],
-  plugins: ['@/plugins/antd-ui'],
+  plugins: [
+    '@/plugins/antd-ui',
+    '@/plugins/firebase',
+    { src: '~plugins/vue-scroll-reveal', ssr: false },
+    '@/plugins/vue-spinner'
+  ],
   buildModules: [],
-  modules: ['@nuxtjs/pwa', '@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/pwa'],
+  env: {
+    FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN,
+    FIREBASE_DATABASE_URL,
+    FIREBASE_PROJECT_ID,
+    FIREBASE_STORAGE_BUCKET,
+    FIREBASE_MESSAGING_SENDER_ID,
+    FIREBASE_APP_ID,
+    FIREBASE_MEASUREMENT_ID,
+    BASE_URL
+  },
   build: {
     extend(config, ctx) {}
   }
