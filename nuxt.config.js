@@ -16,7 +16,8 @@ const TITLE = 'Kidow Blog'
 const DESCRIPTION = 'Kidow Blog'
 const IMAGE = ''
 const PUBLIC_LINK = 'https://www.kidow.kr'
-const COLOR = '#e8590c'
+const BRAND_COLOR = '#e8590c'
+const FONT_COLOR = '#e5e6e7'
 const BASE_URL =
   NODE_ENV === 'production' ? PUBLIC_LINK : 'http://localhost:3000'
 
@@ -83,8 +84,11 @@ module.exports = {
       }
     ]
   },
-  loading: { color: COLOR, height: '3px' },
-  css: ['ant-design-vue/dist/antd.css'],
+  loading: { color: BRAND_COLOR, height: '3px' },
+  css: [
+    { src: 'ant-design-vue/dist/antd.less', lang: 'less' },
+    '~assets/scss/index.scss'
+  ],
   plugins: [
     '@/plugins/antd-ui',
     '@/plugins/firebase',
@@ -93,7 +97,7 @@ module.exports = {
   ],
   pageTransition: 'fade',
   buildModules: [],
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/device', '@nuxtjs/moment'],
   env: {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
@@ -108,12 +112,16 @@ module.exports = {
   styleResources: {
     scss: ['~assets/scss/index.scss']
   },
+  moment: {
+    defaultLocale: 'ko'
+  },
   build: {
     extend(config, { loaders }) {
       loaders.less.javascriptEnabled = true
       loaders.less.modifyVars = {
-        'primary-color': COLOR,
-        'link-color': COLOR
+        'primary-color': BRAND_COLOR,
+        'link-color': BRAND_COLOR,
+        'text-color': FONT_COLOR
       }
     }
   }

@@ -5,7 +5,7 @@
   },
   "hosting": {
     "predeploy": [
-      "rm -rf public/* && mkdir public/.nuxt && cp -r .nuxt/dist/client/ public/.nuxt && cp -a src/static/. public/"
+      "rm -rf public && mkdir public/.nuxt && cp -r .nuxt/dist/client/ public/.nuxt && cp -a src/static/. public/"
     ],
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
