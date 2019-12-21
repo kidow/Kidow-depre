@@ -31,6 +31,15 @@ export default {
     width: $xl;
     padding: 30px 18px;
   }
+  @media screen and (max-width: $xl) {
+    width: $lg;
+  }
+  @media screen and (max-width: $md) {
+    width: $sm;
+  }
+  @media screen and (max-width: $sm) {
+    width: 100%;
+  }
   .title {
     color: $font-color;
     font-size: 40px;

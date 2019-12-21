@@ -9,6 +9,7 @@
 
     <template v-if="tab === 1">
       <a-input-search />
+      <div class="row"></div>
       <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="data">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-card
@@ -34,7 +35,7 @@
     </template>
 
     <div v-else-if="tab === 2" class="intro">
-      <p>다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발을 시작했습니다.</p>
+      <p>다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발의 세계에 발을 들이기 시작했습니다.</p>
     </div>
 
     <div v-else-if="tab === 3">STACKS</div>
@@ -105,11 +106,14 @@ export default {
   background: #2c3035;
   color: #cecfd0;
   transition: 0.3s;
+  // margin-bottom: 16px;
+  // margin-right: 30px;
   &:hover {
     filter: brightness(1.05);
     transform: translate(0, -3px);
   }
-  @media screen and (max-width: $lg) {
+  @media screen and (max-width: $sm) {
+    width: 100%;
   }
 }
 

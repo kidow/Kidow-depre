@@ -12,15 +12,14 @@
   letter-spacing: 2px;
 }
 
+.ant-tabs-tab-arrow-show {
+  color: #89898b;
+}
+
 .ant-card-meta-title {
   white-space: unset;
   text-overflow: unset;
 }
-
-// .ant-tabs-ink-bar {
-//   width: 32px !important;
-//   left: 36px;
-// }
 
 .ant-input-search {
   width: 200px;
@@ -29,7 +28,6 @@
   .ant-input {
     outline: none;
     border: none;
-    // border-bottom: 1px solid $font-color;
     background: $background-color;
   }
   .ant-input-suffix {
