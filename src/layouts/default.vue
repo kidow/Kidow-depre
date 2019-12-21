@@ -50,7 +50,7 @@ export default {
 .bulb {
   position: absolute;
   top: 20px;
-  right: 30px;
+  right: 20px;
   font-size: 26px;
 }
 </style>

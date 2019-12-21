@@ -16,7 +16,7 @@ const TITLE = 'Kidow Blog'
 const DESCRIPTION = 'Kidow Blog'
 const IMAGE = ''
 const PUBLIC_LINK = 'https://www.kidow.kr'
-const BRAND_COLOR = '#e8590c'
+const BRAND_COLOR = '#fd7e14'
 const FONT_COLOR = '#e5e6e7'
 const BASE_URL =
   NODE_ENV === 'production' ? PUBLIC_LINK : 'http://localhost:3000'
