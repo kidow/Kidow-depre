@@ -1,4 +1,5 @@
 @import './variable.scss';
+@import './layout.scss';
 
 .ant-tabs {
   color: #89898b;
@@ -35,4 +36,11 @@
       color: $font-color;
     }
   }
+  @media screen and (max-width: $md) {
+    width: 100%;
+  }
+}
+
+.ant-back-top-content {
+  background: #89898b;
 }

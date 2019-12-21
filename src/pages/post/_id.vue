@@ -1,9 +1,40 @@
 <template>
   <div class="post">
-    <div class="thumbnail"></div>
+    <div class="thumbnail" :style="`background-image: url(${thumbnail})`" />
     <div class="post-container">
       <h1 class="post-title">{{ title }}</h1>
       <div class="post-createdAt">{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</div>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
+      <h1>asdasdsd</h1>
     </div>
     <span @click="$router.push('/')" class="left-icon">
       <i class="fas fa-arrow-left button"></i>
@@ -19,7 +50,9 @@ export default {
   data: _ => ({
     title: '원티드 - 요즘 "프론트엔드 개발" 어떻게 하지? 참관 후기',
     content: '',
-    createdAt: new Date()
+    createdAt: new Date(),
+    thumbnail:
+      'https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg'
   })
 }
 </script>

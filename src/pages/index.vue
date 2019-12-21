@@ -8,9 +8,12 @@
     </a-tabs>
 
     <template v-if="tab === 1">
-      <a-input-search />
-      <div class="row"></div>
-      <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="data">
+      <a-input-search @search="get" />
+      <a-list
+        v-if="data.length"
+        :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }"
+        :dataSource="data"
+      >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-card
             :key="index"
@@ -26,24 +29,88 @@
               style="height: 160px; object-fit: cover"
             />
             <a-card-meta>
-              <h3 slot="title" class="card-title">{{ item.title}}</h3>
+              <h3 slot="title" class="card-title">{{ item.title }}</h3>
               <p slot="description" class="card-description">{{ item.description }}</p>
             </a-card-meta>
           </a-card>
         </a-list-item>
       </a-list>
+      <a-empty v-else />
     </template>
 
-    <div v-else-if="tab === 2" class="intro">
+    <div v-else-if="tab === 2" class="tab-container">
       <p>다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발의 세계에 발을 들이기 시작했습니다.</p>
     </div>
 
-    <div v-else-if="tab === 3">STACKS</div>
-    <div v-else-if="tab === 4">CAREERS</div>
+    <div v-else-if="tab === 3" class="tab-container">
+      <vue-form
+        title="Frontend"
+        :list="[
+      { text: 'Nuxt.js', specialty: true }
+      ,{ text: 'React.js', specialty: true },
+      { text: 'Vue.js' },
+      { text: 'Next.js' },
+      { text: 'Redux'},
+      {text:'Mobx'},{text:'GraphQL'}
+      ]"
+      />
+      <vue-form title="Backend" :list="[{text:'Node.js',specialty: true}]" />
+      <vue-form
+        title="Database"
+        :list="[{text:'MySQL',specialty:true},{text:'MongoDB'},{text:'Redis'},{text:'Firestore'}]"
+      />
+      <vue-form
+        title="Auth"
+        :list="[{text:'Firebase',specialty:true},{text:'JWT',specialty:true},{text:'OAuth'},{text:'Passport'}]"
+      />
+      <vue-form
+        title="Infra"
+        :list="[{text:'AWS',specialty:true},{text:'Firebase',specialty:true},{text:'Heroku'},{text:'Now'}]"
+      />
+      <vue-form
+        title="Collabo"
+        :list="[{text:'Prettier'},{text:'Slack'},{text:'Trello'},{text:'Jira'}]"
+      />
+    </div>
+    <div v-else-if="tab === 4" class="tab-container">
+      <vue-form
+        title="링크플래너"
+        link="https://www.insunet.co.kr"
+        description="(2019.09.16 ~ 현재)"
+        :list="[{
+          text: '보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다.'
+        }, {
+          text: 'React.js, Next.js, Mobx, GraphQL, Gatsby'
+        }]"
+      />
+      <vue-form
+        title="팀블라인드 "
+        link="https://www.mybiskit.com"
+        description="(2019.02.18 ~ 2019.06.17)"
+        :list="[
+        {
+          text: '직장인 익명 SNS 스타트업 블라인드에서 신사업 프로젝트 밑단부터 런칭까지 맡았고, 프론트엔드를 담당했습니다. 급할 경우 서버쪽 작업도 겸하곤 했습니다.'
+        }, {
+          text: 'Nuxt.js, MySQL, Node.js, AWS'
+        }]"
+      />
+      <vue-form
+        title="강남엄마 "
+        link="https://www.gangmom.kr"
+        description="(2019.01.16 ~ 2019.02.15)"
+        :list="[
+        {
+          text: '스타트업 강남엄마에서 백엔드 개발 보조 알바를 하였습니다.'
+        }, {
+          text: 'MySQL, Node.js'
+        }]"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import VueForm from '~/components/Form'
 export default {
   data: _ => ({
     data: [
@@ -90,11 +157,19 @@ export default {
     ],
     tab: 1
   }),
+  components: {
+    VueForm
+  },
   methods: {
-    tabChange(key) {
-      console.log(key)
+    async get(search) {
+      try {
+        console.log(search)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
+  },
+  async asyncData({ app }) {}
 }
 </script>
 
@@ -106,8 +181,6 @@ export default {
   background: #2c3035;
   color: #cecfd0;
   transition: 0.3s;
-  // margin-bottom: 16px;
-  // margin-right: 30px;
   &:hover {
     filter: brightness(1.05);
     transform: translate(0, -3px);
@@ -129,20 +202,24 @@ export default {
 .card-description {
   font-size: 13px;
   color: #cecfd0;
-  height: 40px;
+  height: 75px;
   overflow: hidden;
   word-break: break-all;
   word-wrap: break-word;
-  -webkit-line-clamp: 2;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 
-.intro {
-  font-size: 20px;
+.tab-container {
   padding: 34px 0;
+  font-weight: 300;
   p {
+    font-size: 28px;
     line-height: 36px;
+    @media screen and (max-width: $md) {
+      font-size: 20px;
+    }
   }
 }
 </style>
