@@ -1,26 +1,29 @@
 <template>
-  <a-list :grid="{ gutter: 16, column: 4 }" :dataSource="data">
-    <a-list-item slot="renderItem" slot-scope="item, index">
-      <a-card
-        :key="index"
-        hoverable
-        :bordered="false"
-        class="card-container"
-        @click="$router.push(`/post/${item.id}`)"
-      >
-        <img
-          alt="thumbnail"
-          :src="item.thumbnail"
-          slot="cover"
-          style="height: 160px; object-fit: cover"
-        />
-        <a-card-meta>
-          <h3 slot="title" class="card-title">{{ item.title}}</h3>
-          <p slot="description" class="card-description">{{ item.description }}</p>
-        </a-card-meta>
-      </a-card>
-    </a-list-item>
-  </a-list>
+  <div>
+    <a-input-search />
+    <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="data">
+      <a-list-item slot="renderItem" slot-scope="item, index">
+        <a-card
+          :key="index"
+          hoverable
+          :bordered="false"
+          class="card-container"
+          @click="$router.push(`/post/${item.id}`)"
+        >
+          <img
+            alt="thumbnail"
+            :src="item.thumbnail"
+            slot="cover"
+            style="height: 160px; object-fit: cover"
+          />
+          <a-card-meta>
+            <h3 slot="title" class="card-title">{{ item.title}}</h3>
+            <p slot="description" class="card-description">{{ item.description }}</p>
+          </a-card-meta>
+        </a-card>
+      </a-list-item>
+    </a-list>
+  </div>
 </template>
 
 <script>
@@ -79,10 +82,12 @@ export default {
   border-radius: 4px;
   background: #2c3035;
   color: #cecfd0;
-  transition: 0.15s;
+  transition: 0.3s;
   &:hover {
     filter: brightness(1.05);
     transform: translate(0, -3px);
+  }
+  @media screen and (max-width: $lg) {
   }
 }
 

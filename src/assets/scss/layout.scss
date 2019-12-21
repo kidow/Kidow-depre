@@ -1,0 +1,19 @@
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+
+.flex {
+  display: flex;
+}
+
+.button {
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &:active {
+    filter: brightness(1.1);
+  }
+}

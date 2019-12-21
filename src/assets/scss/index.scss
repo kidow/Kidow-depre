@@ -1,8 +1,7 @@
 @import '../../../node_modules/open-color/open-color.scss';
-
-$brand-color: #fd7e14;
-$background-color: #17191d;
-$font-color: #e5e6e7;
+@import './ant-design.scss';
+@import './layout.scss';
+@import './variable.scss';
 
 html {
   height: 100%;
@@ -61,35 +60,4 @@ h4,
 h5,
 h6 {
   line-height: 1.15;
-}
-
-.flex {
-  display: flex;
-}
-
-.button {
-  cursor: pointer;
-  &:hover {
-    filter: brightness(0.9);
-  }
-  &:active {
-    filter: brightness(1.1);
-  }
-}
-
-.ant-tabs {
-  color: #89898b;
-}
-
-.ant-tabs-bar {
-  border: none;
-}
-
-.ant-tabs-tab {
-  letter-spacing: 2px;
-}
-
-.ant-card-meta-title {
-  white-space: unset;
-  text-overflow: unset;
 }

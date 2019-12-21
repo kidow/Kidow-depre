@@ -10,7 +10,7 @@
       <a-tab-pane tab="스택" key="3"></a-tab-pane>
       <a-tab-pane tab="이력" key="4"></a-tab-pane>
     </a-tabs>
-    <div style="padding-top: 60px">
+    <div style="padding-top: 30px">
       <nuxt />
     </div>
     <a-icon
@@ -35,9 +35,9 @@ export default {
 .container {
   margin: 0 auto;
   padding: 150px 0;
-  width: 1400px;
-  @media screen and (max-width: 1400px) {
-    width: 100%;
+  width: $xxl;
+  @media screen and (max-width: $xxl) {
+    width: $xl;
     padding: 30px 18px;
   }
   .title {
