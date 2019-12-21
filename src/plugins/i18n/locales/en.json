@@ -1,0 +1,26 @@
+{
+  "tab": {
+    "one": "VIEW ALL",
+    "two": "ABOUT",
+    "three": "STACKS",
+    "four": "CAREERS"
+  },
+  "name": "DW Kim,",
+  "age": "26,",
+  "job": "Web Developer.",
+  "about": "My name is Dong Wook Kim and I love dark mode. Since April 2018, I have entered the world of web development.",
+  "career": {},
+  "current": "current",
+  "linkplanner": {
+    "name": "LinkPlanner",
+    "description": ""
+  },
+  "teamblind": {
+    "name": "TeamBlind",
+    "description": ""
+  },
+  "gangmom": {
+    "name": "GangMom",
+    "description": ""
+  }
+}

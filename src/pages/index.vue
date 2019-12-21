@@ -1,10 +1,10 @@
 <template>
   <div style="padding-top: 30px">
     <a-tabs :animated="false" :tabBarGutter="0" @change="key => tab = key">
-      <a-tab-pane tab="VIEW ALL" :key="1" />
-      <a-tab-pane tab="ABOUT" :key="2" />
-      <a-tab-pane tab="STACKS" :key="3" />
-      <a-tab-pane tab="CAREERS" :key="4" />
+      <a-tab-pane :tab="$t('tab.one')" :key="1" />
+      <a-tab-pane :tab="$t('tab.two')" :key="2" />
+      <a-tab-pane :tab="$t('tab.three')" :key="3" />
+      <a-tab-pane :tab="$t('tab.four')" :key="4" />
     </a-tabs>
 
     <template v-if="tab === 1">
@@ -39,7 +39,7 @@
     </template>
 
     <div v-else-if="tab === 2" class="tab-container">
-      <p>다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발의 세계에 발을 들이기 시작했습니다.</p>
+      <p>{{ $t('about')}}</p>
     </div>
 
     <div v-else-if="tab === 3" class="tab-container">
@@ -74,9 +74,9 @@
     </div>
     <div v-else-if="tab === 4" class="tab-container">
       <vue-form
-        title="링크플래너"
+        :title="$t('linkplanner.name')"
         link="https://www.insunet.co.kr"
-        description="(2019.09.16 ~ 현재)"
+        :description="`(2019.09.16 ~ ${$t('current')})`"
         :list="[{
           text: '보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다.'
         }, {
@@ -84,7 +84,7 @@
         }]"
       />
       <vue-form
-        title="팀블라인드 "
+        :title="$t('teamblind.name')"
         link="https://www.mybiskit.com"
         description="(2019.02.18 ~ 2019.06.17)"
         :list="[
@@ -95,7 +95,7 @@
         }]"
       />
       <vue-form
-        title="강남엄마 "
+        :title="$t('gangmom.name')"
         link="https://www.gangmom.kr"
         description="(2019.01.16 ~ 2019.02.15)"
         :list="[

@@ -1,0 +1,26 @@
+{
+  "tab": {
+    "one": "활동",
+    "two": "소개",
+    "three": "스택",
+    "four": "이력"
+  },
+  "name": "김동욱.",
+  "age": "26세.",
+  "job": "웹 개발자.",
+  "about": "다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발의 세계에 발을 들이기 시작했습니다.",
+  "career": {},
+  "current": "현재",
+  "linkplanner": {
+    "name": "링크플래너",
+    "description": ""
+  },
+  "teamblind": {
+    "name": "팀블라인드",
+    "description": ""
+  },
+  "gangmom": {
+    "name": "강남엄마",
+    "description": ""
+  }
+}

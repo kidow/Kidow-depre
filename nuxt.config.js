@@ -90,13 +90,13 @@ module.exports = {
     '~assets/scss/index.scss'
   ],
   plugins: [
+    '@/plugins/i18n',
     '@/plugins/antd-ui',
     '@/plugins/firebase',
-    { src: '~plugins/vue-scroll-reveal', ssr: false },
+    { src: '@/plugins/vue-scroll-reveal', mode: 'client' },
     '@/plugins/vue-spinner'
   ],
   pageTransition: 'fade',
-  buildModules: [],
   modules: ['@nuxtjs/style-resources', '@nuxtjs/device', '@nuxtjs/moment'],
   env: {
     FIREBASE_API_KEY,

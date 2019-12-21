@@ -1,22 +1,40 @@
 <template>
   <div class="container">
-    <h1 class="title">
-      김동욱. 26세.
-      <br v-if="$device.isMobile" />웹 개발자.
+    <h1 class="title" v-scroll-reveal="{ origin: 'bottom', distance: '20px' }">
+      {{ $t('name') }} {{ $t('age')}}
+      <br v-if="$device.isMobile" />
+      {{ $t('job')}}
     </h1>
     <nuxt />
     <a-icon type="github" class="github button" @click="onGithubOpen" />
-    <a-icon type="global" class="global button" />
+    <a-icon type="global" class="global button" @click="changeLocale" />
     <a-back-top />
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   methods: {
     onGithubOpen() {
       window.open('https://github.com/kidow', '_blank')
+    },
+    changeLocale() {
+      let date = new Date()
+      let locale = ''
+      if (!this.locale || this.locale === 'ko') locale = 'en'
+      else locale = 'ko'
+      date.setTime(date.getTime() + 365 * 60 * 60 * 24 * 1000)
+      document.cookie =
+        'locale=' + locale + ';expires=' + date.toUTCString() + ';path=/'
+
+      location.reload()
     }
+  },
+  computed: {
+    ...mapGetters({
+      locale: 'GET_CURRENT_LOCALE'
+    })
   }
 }
 </script>
