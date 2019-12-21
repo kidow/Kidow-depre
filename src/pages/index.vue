@@ -1,28 +1,44 @@
 <template>
-  <div>
-    <a-input-search />
-    <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="data">
-      <a-list-item slot="renderItem" slot-scope="item, index">
-        <a-card
-          :key="index"
-          hoverable
-          :bordered="false"
-          class="card-container"
-          @click="$router.push(`/post/${item.id}`)"
-        >
-          <img
-            alt="thumbnail"
-            :src="item.thumbnail"
-            slot="cover"
-            style="height: 160px; object-fit: cover"
-          />
-          <a-card-meta>
-            <h3 slot="title" class="card-title">{{ item.title}}</h3>
-            <p slot="description" class="card-description">{{ item.description }}</p>
-          </a-card-meta>
-        </a-card>
-      </a-list-item>
-    </a-list>
+  <div style="padding-top: 30px">
+    <a-tabs :animated="false" :tabBarGutter="0" @change="key => tab = key">
+      <a-tab-pane tab="VIEW ALL" :key="1" />
+      <a-tab-pane tab="ABOUT" :key="2" />
+      <a-tab-pane tab="STACKS" :key="3" />
+      <a-tab-pane tab="CAREERS" :key="4" />
+    </a-tabs>
+
+    <template v-if="tab === 1">
+      <a-input-search />
+      <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="data">
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-card
+            :key="index"
+            hoverable
+            :bordered="false"
+            class="card-container"
+            @click="$router.push(`/post/${item.id}`)"
+          >
+            <img
+              alt="thumbnail"
+              :src="item.thumbnail"
+              slot="cover"
+              style="height: 160px; object-fit: cover"
+            />
+            <a-card-meta>
+              <h3 slot="title" class="card-title">{{ item.title}}</h3>
+              <p slot="description" class="card-description">{{ item.description }}</p>
+            </a-card-meta>
+          </a-card>
+        </a-list-item>
+      </a-list>
+    </template>
+
+    <div v-else-if="tab === 2" class="intro">
+      <p>다크 모드를 사랑하는 웹 개발자 김동욱입니다. 2018년 4월부터 개발을 시작했습니다.</p>
+    </div>
+
+    <div v-else-if="tab === 3">STACKS</div>
+    <div v-else-if="tab === 4">CAREERS</div>
   </div>
 </template>
 
@@ -70,8 +86,14 @@ export default {
         thumbnail:
           'https://content.surfit.io/thumbs/image/3MzV5/3X4o8/109464065dfb3caf55764/cover-center-1x.webp'
       }
-    ]
-  })
+    ],
+    tab: 1
+  }),
+  methods: {
+    tabChange(key) {
+      console.log(key)
+    }
+  }
 }
 </script>
 
@@ -110,5 +132,13 @@ export default {
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.intro {
+  font-size: 20px;
+  padding: 34px 0;
+  p {
+    line-height: 36px;
+  }
 }
 </style>
