@@ -2,7 +2,7 @@
 @import './layout.scss';
 
 .ant-tabs {
-  color: #89898b;
+  color: $font-secondary-color;
 }
 
 .ant-tabs-bar {
@@ -14,7 +14,7 @@
 }
 
 .ant-tabs-tab-arrow-show {
-  color: #89898b;
+  color: $font-secondary-color;
 }
 
 .ant-card-meta-title {
@@ -33,7 +33,7 @@
   }
   .ant-input-suffix {
     i {
-      color: $font-color;
+      color: $font-primary-color;
     }
   }
   @media screen and (max-width: $md) {
@@ -42,5 +42,34 @@
 }
 
 .ant-back-top-content {
-  background: #89898b;
+  background: $font-secondary-color;
+}
+
+.ant-comment-content-author-name {
+  color: $font-primary-color;
+}
+
+.ant-comment-content-author-time,
+.ant-message-notice-content {
+  color: $font-secondary-color;
+}
+
+.ant-tooltip-inner {
+  background: $font-primary-color;
+  color: $background-color;
+}
+
+.ant-input {
+  border-color: $background-color;
+  color: $background-color;
+  background: $font-primary-color;
+}
+
+.ant-list-header,
+.ant-list-item {
+  border-color: $font-secondary-color !important;
+}
+
+.ant-comment-content-detail {
+  font-size: 16px;
 }

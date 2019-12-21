@@ -22,5 +22,15 @@
   "gangmom": {
     "name": "강남엄마",
     "description": ""
+  },
+  "comment": {
+    "replies": " 개의 답글",
+    "placeholder": "로그인 없이 작성 가능. 단, 수정과 삭제는 불가능.",
+    "author": "익명",
+    "add": "댓글 등록"
+  },
+  "copy": {
+    "success": "주소가 복사되었습니다.",
+    "error": "죄송합니다. 주소가 복사되지 않았습니다."
   }
 }

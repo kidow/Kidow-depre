@@ -22,5 +22,15 @@
   "gangmom": {
     "name": "GangMom",
     "description": ""
+  },
+  "comment": {
+    "replies": "replies",
+    "placeholder": "Without Login. But No Edit And No Delete.",
+    "author": "Anonymous",
+    "add": "Add comment"
+  },
+  "copy": {
+    "success": "Copying url is succeed.",
+    "error": "Sorry, the url is not copied."
   }
 }

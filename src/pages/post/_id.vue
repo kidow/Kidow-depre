@@ -35,6 +35,47 @@
       <h1>asdasdsd</h1>
       <h1>asdasdsd</h1>
       <h1>asdasdsd</h1>
+
+      <a-list class="comment-list" itemLayout="horizontal" :dataSource="comments">
+        <div slot="header" class="comment-header">
+          <span>{{ comments.length }}{{ $t('comment.replies')}}</span>
+          <a-tooltip :title="111" placement="top">
+            <a-icon type="heart" class="button" theme="filled" />
+          </a-tooltip>
+          <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
+          <a-icon 
+            @click="onCopy"
+            type="link" 
+            class="button" 
+          />
+        </div>
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-comment
+            :key="index"
+            :content="item.content"
+            :author="$t('comment.author')"
+            :datetime="$moment().fromNow()"
+          >
+            <a-avatar icon="user" slot="avatar" />
+          </a-comment>
+        </a-list-item>
+      </a-list>
+      <a-comment>
+        <a-avatar icon="user" slot="avatar" />
+        <div slot="content">
+          <a-form-item>
+            <a-textarea :rows="4" v-model="comment" />
+          </a-form-item>
+          <a-form-item>
+            <a-button
+              htmlType="submit"
+              :loading="loading"
+              @click="addComment"
+              type="link"
+            >{{ $t('comment.add') }}</a-button>
+          </a-form-item>
+        </div>
+      </a-comment>
     </div>
     <span @click="$router.push('/')" class="left-icon">
       <i class="fas fa-arrow-left button"></i>
@@ -52,8 +93,36 @@ export default {
     content: '',
     createdAt: new Date(),
     thumbnail:
-      'https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg'
-  })
+      'https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg',
+    comments: [
+      {
+        content:
+          'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
+      },
+      {
+        content:
+          'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
+      }
+    ],
+    loading: false,
+    comment: ''
+  }),
+  methods: {
+    async addComment() {
+      try {
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    shareFacebook() {
+      const url = `http://www.facebook.com/sharer/sharer.php?u=${location.href}`
+      window.open(url, 'share', 'menubar=1, resizable=1, width=800, height=500')
+    },
+    onCopy() {
+      this.$copyText(location.href)
+      this.$message.success(this.$t('copy.success'))
+    },
+  }
 }
 </script>
 
@@ -61,15 +130,8 @@ export default {
 .post-container {
   margin: 0 auto;
   padding: 150px 0;
-  width: $xxl;
-  color: $font-color;
-  @media screen and (max-width: $xxl) {
-    width: $xl;
-    padding: 30px 18px;
-  }
-  @media screen and (max-width: $xl) {
-    width: $lg;
-  }
+  color: $font-primary-color;
+  width: $lg;
   @media screen and (max-width: $lg) {
     width: $md;
   }
@@ -111,6 +173,10 @@ export default {
   top: 70%;
   color: #fff;
   position: absolute;
+  width: $lg;
+  @media screen and (max-width: $lg) {
+    width: $md;
+  }
   @media screen and (max-width: $md) {
     top: 120px;
     font-size: 29px;
@@ -127,5 +193,9 @@ export default {
   @media screen and (max-width: $md) {
     font-size: 14px;
   }
+}
+
+.comment-header {
+  font-size: 22px;
 }
 </style>

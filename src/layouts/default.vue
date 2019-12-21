@@ -59,7 +59,7 @@ export default {
     width: 100%;
   }
   .title {
-    color: $font-color;
+    color: $font-primary-color;
     font-size: 40px;
     font-weight: bold;
   }

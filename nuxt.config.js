@@ -94,10 +94,16 @@ module.exports = {
     '@/plugins/antd-ui',
     '@/plugins/firebase',
     { src: '@/plugins/vue-scroll-reveal', mode: 'client' },
-    '@/plugins/vue-spinner'
+    '@/plugins/vue-spinner',
+    { src: '@/plugins/vue-clipboard2', mode: 'client' }
   ],
   pageTransition: 'fade',
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/device', '@nuxtjs/moment'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/device'],
+  buildModules: ['@nuxtjs/moment'],
+  moment: {
+    defaultLocales: 'ko',
+    locales: ['ko']
+  },
   env: {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
@@ -111,9 +117,6 @@ module.exports = {
   },
   styleResources: {
     scss: ['~assets/scss/index.scss']
-  },
-  moment: {
-    defaultLocale: 'ko'
   },
   build: {
     extend(config, { loaders }) {
