@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title" v-scroll-reveal="{ origin: 'bottom', distance: '20px' }">
       {{ $t('name') }} {{ $t('age')}}
-      <br v-if="$device.isMobile" />
+      <br v-if="isMobile" />
       {{ $t('job')}}
     </h1>
     <nuxt />
@@ -34,11 +34,14 @@ export default {
   computed: {
     ...mapGetters({
       locale: 'GET_CURRENT_LOCALE'
-    })
+    }),
+    isMobile() {
+      return this.$device.isMobile
+    }
   },
   mounted() {
     this.$store.dispatch('auth/SIGN_IN_ANONYMOUS')
-  },
+  }
 }
 </script>
 

@@ -33,5 +33,8 @@
   "copy": {
     "success": "Copying url is succeed.",
     "error": "Sorry, the url is not copied."
-  }
+  },
+  "404": "Not Found.",
+  "home": "Home",
+  "500": "Server Error. Sorry."
 }

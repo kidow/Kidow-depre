@@ -16,7 +16,7 @@
             hoverable
             :bordered="false"
             class="card-container"
-            @click="$router.push(`/post/${item.id}`)"
+            @click="$router.push(`/post/${$titleUrl(item.title, item.id)}`)"
           >
             <img
               alt="thumbnail"

@@ -3,7 +3,16 @@
     <div class="thumbnail" :style="`background-image: url(${thumbnail})`" />
     <div class="post-container">
       <h1 class="post-title">{{ title }}</h1>
-      <div class="post-createdAt">{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</div>
+      <div class="post-createdAt">
+        <span>{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</span>
+        <template v-if="!comments.length">
+          <a-tooltip :title="111" placement="top">
+            <a-icon type="heart" class="button" theme="filled" />
+          </a-tooltip>
+          <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
+          <a-icon @click="onCopy" type="link" class="button" />
+        </template>
+      </div>
       <vue-marked :markdown="content" />
 
       <a-list
@@ -59,15 +68,17 @@
 import VueMarked from '~/components/Marked'
 import { mapGetters } from 'vuex'
 export default {
-  components: { VueMarked },
+  components: {
+    VueMarked
+  },
   async asyncData({ app, params, redirect }) {
     if (!params.id) return redirect('/')
     try {
       const [postRef, commentsRef] = await Promise.all([
-        app.$db.collection('posts').doc(params.id),
+        app.$db.collection('posts').doc(app.$sliceParams(params.id)),
         app.$db
           .collection('comments')
-          .where('postId', '==', params.id)
+          .where('postId', '==', app.$sliceParams(params.id))
           .get()
       ])
       const postDoc = await postRef.get()
@@ -92,11 +103,10 @@ export default {
   },
   layout: 'post',
   data: _ => ({
-    title: '원티드 - 요즘 "프론트엔드 개발" 어떻게 하지? 참관 후기',
+    title: '',
     content: '',
     createdAt: new Date(),
-    thumbnail:
-      'https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg',
+    thumbnail: '',
     comments: [],
     loading: false,
     comment: ''
@@ -136,6 +146,72 @@ export default {
     ...mapGetters({
       uid: 'auth/GET_USER_ID'
     })
+  },
+  head() {
+    return {
+      title: `${this.title} - Kidow Blog`,
+      meta: [
+        // Open Graph
+        { hid: 'og-type', property: 'og:type', content: 'website' },
+        {
+          hid: 'og-site_name',
+          property: 'og:site_name',
+          content: 'KidowBlog'
+        },
+        { hid: 'og-title', property: 'og:title', content: this.title },
+        {
+          hid: 'og-description',
+          property: 'og-description',
+          content: this.$cheerio(this.content).pretext
+        },
+        {
+          hid: 'og-image',
+          property: 'og:image',
+          content: this.thumbnail
+        },
+        {
+          hid: 'og-url',
+          property: 'og:url',
+          content: process.env.BASE_URL + this.$route.path
+        },
+        {
+          hid: 'og-image-alt',
+          property: 'og:image:alt',
+          content: '###KidowBlog###'
+        },
+        // Twitter
+        {
+          hid: 'twitter-site',
+          property: 'twitter:site',
+          content: '@KidowBlog'
+        },
+        {
+          hid: 'twitter-card',
+          property: 'twitter:card',
+          content: 'summary'
+        },
+        {
+          hid: 'twitter-title',
+          property: 'twitter:title',
+          content: 'KidowBlog'
+        },
+        {
+          hid: 'twitter-description',
+          property: 'twitter:description',
+          content: this.$cheerio(this.content).pretext
+        },
+        {
+          hid: 'twitter-image',
+          property: 'twitter:image',
+          content: this.thumbnail
+        },
+        {
+          hid: 'twitter-domain',
+          property: 'twitter:domain',
+          content: process.env.BASE_URL + this.$route.path
+        }
+      ]
+    }
   }
 }
 </script>
