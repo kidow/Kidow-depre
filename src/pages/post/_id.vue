@@ -4,50 +4,21 @@
     <div class="post-container">
       <h1 class="post-title">{{ title }}</h1>
       <div class="post-createdAt">{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</div>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
-      <h1>asdasdsd</h1>
+      <vue-marked :markdown="content" />
 
-      <a-list class="comment-list" itemLayout="horizontal" :dataSource="comments">
+      <a-list
+        v-if="comments.length"
+        class="comment-list"
+        itemLayout="horizontal"
+        :dataSource="comments"
+      >
         <div slot="header" class="comment-header">
           <span>{{ comments.length }}{{ $t('comment.replies')}}</span>
           <a-tooltip :title="111" placement="top">
             <a-icon type="heart" class="button" theme="filled" />
           </a-tooltip>
           <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
-          <a-icon 
-            @click="onCopy"
-            type="link" 
-            class="button" 
-          />
+          <a-icon @click="onCopy" type="link" class="button" />
         </div>
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-comment
@@ -64,7 +35,7 @@
         <a-avatar icon="user" slot="avatar" />
         <div slot="content">
           <a-form-item>
-            <a-textarea :rows="4" v-model="comment" />
+            <a-textarea :placeholder="$t('comment.placeholder')" :rows="4" v-model="comment" />
           </a-form-item>
           <a-form-item>
             <a-button
@@ -85,8 +56,40 @@
 </template>
 
 <script>
+import VueMarked from '~/components/Marked'
+import { mapGetters } from 'vuex'
 export default {
-  async asyncData({ app }) {},
+  components: { VueMarked },
+  async asyncData({ app, params, redirect }) {
+    if (!params.id) return redirect('/')
+    try {
+      const [postRef, commentsRef] = await Promise.all([
+        app.$db.collection('posts').doc(params.id),
+        app.$db
+          .collection('comments')
+          .where('postId', '==', params.id)
+          .get()
+      ])
+      const postDoc = await postRef.get()
+      const post = postDoc.data()
+      post.createdAt = post.createdAt.toDate()
+      const comments = []
+      commentsRef.forEach(doc => {
+        let data = doc.data()
+        data.createdAt = data.createdAt.toDate()
+        comments.push(data)
+      })
+      return {
+        title: post.title,
+        content: post.content,
+        createdAt: post.createdAt,
+        thumbnail: post.thumbnail,
+        comments
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
   layout: 'post',
   data: _ => ({
     title: '원티드 - 요즘 "프론트엔드 개발" 어떻게 하지? 참관 후기',
@@ -94,22 +97,28 @@ export default {
     createdAt: new Date(),
     thumbnail:
       'https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg',
-    comments: [
-      {
-        content:
-          'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
-      },
-      {
-        content:
-          'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
-      }
-    ],
+    comments: [],
     loading: false,
     comment: ''
   }),
   methods: {
     async addComment() {
+      if (!this.comment) return
       try {
+        const { data } = await this.$axios.get(
+          'https://api.ipify.org/?format=json'
+        )
+        const item = {
+          content: this.comment,
+          postId: this.$route.params.id,
+          ipv4: data.ip || '',
+          userId: this.uid,
+          createdAt: new Date()
+        }
+        await this.$db.collection('comments').add(item)
+        this.comments.push({ content: this.comment })
+        this.comment = ''
+        this.$message.success(this.$t('comment.success'))
       } catch (err) {
         console.log(err)
       }
@@ -121,7 +130,12 @@ export default {
     onCopy() {
       this.$copyText(location.href)
       this.$message.success(this.$t('copy.success'))
-    },
+    }
+  },
+  computed: {
+    ...mapGetters({
+      uid: 'auth/GET_USER_ID'
+    })
   }
 }
 </script>
@@ -179,6 +193,7 @@ export default {
   }
   @media screen and (max-width: $md) {
     top: 120px;
+    width: 95%;
     font-size: 29px;
     word-break: keep-all;
   }
@@ -191,7 +206,7 @@ export default {
   color: #fff;
   opacity: 0.5;
   @media screen and (max-width: $md) {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 

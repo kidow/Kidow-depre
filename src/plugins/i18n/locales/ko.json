@@ -13,21 +13,22 @@
   "current": "현재",
   "linkplanner": {
     "name": "링크플래너",
-    "description": ""
+    "description": "보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다."
   },
   "teamblind": {
     "name": "팀블라인드",
-    "description": ""
+    "description": "직장인 익명 SNS 스타트업 블라인드에서 신사업 프로젝트 밑단부터 런칭까지 맡았고, 프론트엔드를 담당했습니다. 급할 경우 서버쪽 작업도 겸하곤 했습니다."
   },
   "gangmom": {
     "name": "강남엄마",
-    "description": ""
+    "description": "학원 플랫폼 강남엄마에서 백엔드 개발 보조 알바를 하였습니다."
   },
   "comment": {
     "replies": " 개의 답글",
-    "placeholder": "로그인 없이 작성 가능. 단, 수정과 삭제는 불가능.",
+    "placeholder": "로그인 없이 작성이 가능합니다. 단, 수정과 삭제는 불가능합니다.",
     "author": "익명",
-    "add": "댓글 등록"
+    "add": "댓글 등록",
+    "success": "댓글이 작성되었습니다."
   },
   "copy": {
     "success": "주소가 복사되었습니다.",

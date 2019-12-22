@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   methods: {
     onGithubOpen() {
@@ -35,7 +35,10 @@ export default {
     ...mapGetters({
       locale: 'GET_CURRENT_LOCALE'
     })
-  }
+  },
+  mounted() {
+    this.$store.dispatch('auth/SIGN_IN_ANONYMOUS')
+  },
 }
 </script>
 

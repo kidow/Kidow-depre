@@ -95,10 +95,11 @@ module.exports = {
     '@/plugins/firebase',
     { src: '@/plugins/vue-scroll-reveal', mode: 'client' },
     '@/plugins/vue-spinner',
-    { src: '@/plugins/vue-clipboard2', mode: 'client' }
+    { src: '@/plugins/vue-clipboard2', mode: 'client' },
+    '@/plugins/vue-custom'
   ],
   pageTransition: 'fade',
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/device'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/device', '@nuxtjs/axios'],
   buildModules: ['@nuxtjs/moment'],
   moment: {
     defaultLocales: 'ko',

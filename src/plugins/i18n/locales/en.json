@@ -25,9 +25,10 @@
   },
   "comment": {
     "replies": "replies",
-    "placeholder": "Without Login. But No Edit And No Delete.",
+    "placeholder": "No login required. But No Edit And No Delete.",
     "author": "Anonymous",
-    "add": "Add comment"
+    "add": "Add comment",
+    "success": "Succeed."
   },
   "copy": {
     "success": "Copying url is succeed.",
