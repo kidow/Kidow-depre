@@ -253,6 +253,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.post {
+  margin-top: 100vh;
+  z-index: 1;
+  background: $background-color;
+  min-height: 100vh;
+}
+
 .post-container {
   margin: 0 auto;
   padding: 150px 0;
@@ -286,13 +293,17 @@ export default {
 }
 
 .thumbnail {
-  height: 100vh;
   background-attachment: fixed;
   background-position: 50% 50%;
-  display: block;
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
 .post-title {
