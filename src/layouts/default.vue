@@ -1,9 +1,10 @@
 <template>
   <div class="container">
-    <h1
-      class="title"
-      v-scroll-reveal="{ origin: 'bottom', distance: '20px' }"
-    >{{ $t('name') }} {{ $t('age')}} {{ $t('job')}}</h1>
+    <h1 class="title" v-scroll-reveal="{ origin: 'bottom', distance: '20px' }">
+      {{ $t('name') }} {{ $t('age')}}
+      <br />
+      {{ $t('job')}}
+    </h1>
     <nuxt />
     <a-icon type="github" class="github button" @click="onGithubOpen" />
     <a-icon type="global" class="global button" @click="changeLocale" />
@@ -67,6 +68,7 @@ export default {
   .title {
     color: $font-primary-color;
     font-size: 40px;
+    line-height: 1.4;
     font-weight: bold;
     @media screen and (max-width: $md) {
       width: 80%;
