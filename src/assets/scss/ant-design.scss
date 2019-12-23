@@ -74,3 +74,23 @@
 .ant-comment-content-detail {
   font-size: 16px;
 }
+
+.ant-form-item-control {
+  text-align: right;
+  @media screen and (max-width: $md) {
+    text-align: left;
+  }
+}
+
+.ant-tag {
+  color: $font-primary-color;
+  background: $font-secondary-color;
+  border: none;
+  font-size: 20px;
+  padding: 7px;
+  height: unset;
+  @media screen and (max-width: $md) {
+    padding: 4px;
+    font-size: 14px;
+  }
+}

@@ -99,7 +99,12 @@ module.exports = {
     '@/plugins/vue-custom'
   ],
   pageTransition: 'fade',
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/device', '@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/style-resources',
+    '@nuxtjs/device',
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa'
+  ],
   buildModules: ['@nuxtjs/moment'],
   moment: {
     defaultLocales: 'ko',
@@ -118,6 +123,16 @@ module.exports = {
   },
   styleResources: {
     scss: ['~assets/scss/index.scss']
+  },
+  manifest: {
+    name: TITLE,
+    short_name: TITLE,
+    start_url: '/?utm_source=homescreen',
+    display: 'standalone',
+    background_color: '#17191d'
+  },
+  workbox: {
+    offline: false
   },
   build: {
     extend(config, { loaders }) {

@@ -1,5 +1,5 @@
 <template>
-  <nuxt style="background: #414343" />
+  <nuxt />
 </template>
 
 <script>

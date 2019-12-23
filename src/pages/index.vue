@@ -16,7 +16,7 @@
             hoverable
             :bordered="false"
             class="card-container"
-            @click="$router.push(`/post/${$titleUrl(item.title, item.id)}`)"
+            @click="_ => onCardClick(item)"
           >
             <img
               alt="thumbnail"
@@ -70,35 +70,35 @@
     <div v-else-if="tab === 4" class="tab-container">
       <vue-form
         :title="$t('linkplanner.name')"
+        block
         link="https://www.insunet.co.kr"
+        :stacks="['React.js', 'Next.js', 'Mobx', 'GraphQL', 'Gatsby']"
         :description="`(2019.09.16 ~ ${$t('current')})`"
         :list="[{
           text: '보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다.'
-        }, {
-          text: 'React.js, Next.js, Mobx, GraphQL, Gatsby'
         }]"
       />
       <vue-form
         :title="$t('teamblind.name')"
         link="https://www.mybiskit.com"
         description="(2019.02.18 ~ 2019.06.17)"
+        block
+        :stacks="['Nuxt.js', 'MySQL', 'Node.js', 'AWS']"
         :list="[
         {
           text: '직장인 익명 SNS 스타트업 블라인드에서 신사업 프로젝트 밑단부터 런칭까지 맡았고, 프론트엔드를 담당했습니다. 급할 경우 서버쪽 작업도 겸하곤 했습니다.'
-        }, {
-          text: 'Nuxt.js, MySQL, Node.js, AWS'
         }]"
       />
       <vue-form
         :title="$t('gangmom.name')"
         link="https://www.gangmom.kr"
         description="(2019.01.16 ~ 2019.02.15)"
+        block
         :list="[
         {
           text: '스타트업 강남엄마에서 백엔드 개발 보조 알바를 하였습니다.'
-        }, {
-          text: 'MySQL, Node.js'
         }]"
+        :stacks="['MySQL', 'Node.js']"
       />
     </div>
   </div>
@@ -135,6 +135,10 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    onCardClick(item) {
+      this.$analytics.logEvent('카드 클릭', this.title)
+      this.$router.push(`/post/${this.$titleUrl(item.title, item.id)}`)
     }
   },
   async asyncData({ app }) {
@@ -150,6 +154,17 @@ export default {
       return { posts }
     } catch (err) {
       console.log(err)
+    }
+  },
+  mounted() {
+    this.$analytics.logEvent('홈페이지 방문')
+  },
+  watch: {
+    tab(val) {
+      if (val === 1) this.$analytics.logEvent('활동 탭 클릭')
+      else if (val === 2) this.$analytics.logEvent('소개 탭 클릭')
+      else if (val === 3) this.$analytics.logEvent('스택 탭 클릭')
+      else if (val === 4) this.$analytics.logEvent('이력 탭 클릭')
     }
   }
 }

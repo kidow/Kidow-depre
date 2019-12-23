@@ -6,8 +6,8 @@
       <div class="post-createdAt">
         <span>{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</span>
         <template v-if="!comments.length">
-          <a-tooltip :title="111" placement="top">
-            <a-icon type="heart" class="button" theme="filled" />
+          <a-tooltip :title="`${likes}`" placement="top">
+            <a-icon type="heart" class="button" theme="filled" @click="infiniteLike" />
           </a-tooltip>
           <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
           <a-icon @click="onCopy" type="link" class="button" />
@@ -23,8 +23,8 @@
       >
         <div slot="header" class="comment-header">
           <span>{{ comments.length }}{{ $t('comment.replies')}}</span>
-          <a-tooltip :title="111" placement="top">
-            <a-icon type="heart" class="button" theme="filled" />
+          <a-tooltip :title="`${likes}`" placement="top">
+            <a-icon type="heart" class="button" theme="filled" @click="infiniteLike" />
           </a-tooltip>
           <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
           <a-icon @click="onCopy" type="link" class="button" />
@@ -91,11 +91,13 @@ export default {
         comments.push(data)
       })
       return {
-        title: post.title,
-        content: post.content,
-        createdAt: post.createdAt,
-        thumbnail: post.thumbnail,
-        comments
+        title: post.title || '',
+        content: post.content || '',
+        createdAt: post.createdAt || '',
+        thumbnail: post.thumbnail || '',
+        comments: comments || [],
+        likes: post.likes || 0,
+        views: post.views || 0
       }
     } catch (err) {
       console.log(err)
@@ -109,7 +111,9 @@ export default {
     thumbnail: '',
     comments: [],
     loading: false,
-    comment: ''
+    comment: '',
+    likes: 0,
+    views: 0
   }),
   methods: {
     async addComment() {
@@ -129,6 +133,7 @@ export default {
         this.comments.push({ content: this.comment })
         this.comment = ''
         this.$message.success(this.$t('comment.success'))
+        this.$analytics.logEvent('댓글 등록', this.title)
       } catch (err) {
         console.log(err)
       }
@@ -136,11 +141,42 @@ export default {
     shareFacebook() {
       const url = `http://www.facebook.com/sharer/sharer.php?u=${location.href}`
       window.open(url, 'share', 'menubar=1, resizable=1, width=800, height=500')
+      this.$analytics.logEvent('페이스북 공유', location.href)
     },
     onCopy() {
       this.$copyText(location.href)
       this.$message.success(this.$t('copy.success'))
+      this.$analytics.logEvent('링크 복사', location.href)
+    },
+    async infiniteLike(e) {
+      e.preventDefault()
+      const id = this.$sliceParams(this.$route.params.id)
+      try {
+        await this.$db
+          .collection('posts')
+          .doc(id)
+          .update({ likes: this.likes + 1 })
+        this.likes = this.likes + 1
+        this.$analytics.logEvent('좋아요 클릭', this.title)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async increaseViews() {
+      const id = this.$sliceParams(this.$route.params.id)
+      try {
+        await this.$db
+          .collection('posts')
+          .doc(id)
+          .update({ views: this.views + 1 })
+      } catch (err) {
+        console.log(err)
+      }
     }
+  },
+  mounted() {
+    this.increaseViews()
+    this.$analytics.logEvent('글 조회', this.title)
   },
   computed: {
     ...mapGetters({
@@ -250,12 +286,13 @@ export default {
 }
 
 .thumbnail {
-  background-image: url('https://cdn.pixabay.com/photo/2016/01/29/16/57/prague-1168302_960_720.jpg');
   height: 100vh;
   background-attachment: fixed;
-  background-position: center;
+  background-position: 50% 50%;
+  display: block;
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0.5;
 }
 
 .post-title {
@@ -270,20 +307,17 @@ export default {
   @media screen and (max-width: $md) {
     top: 120px;
     width: 95%;
-    font-size: 29px;
+    font-size: 32px;
     word-break: keep-all;
   }
 }
 
 .post-createdAt {
   position: absolute;
-  font-size: 18px;
-  top: 95%;
+  font-size: 22px;
+  top: 93%;
   color: #fff;
   opacity: 0.5;
-  @media screen and (max-width: $md) {
-    font-size: 16px;
-  }
 }
 
 .comment-header {

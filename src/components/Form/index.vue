@@ -1,5 +1,5 @@
 <template>
-  <div class="form-container flex">
+  <div class="form-container flex" :class="{ block: !!block }">
     <div class="form-left">
       <div class="form-title">
         <span :class="{ button: !!link }" @click="_ => openLink(link)">{{ title }}</span>
@@ -13,6 +13,9 @@
         class="form-item"
         :class="{ specialty: !!item.specialty }"
       >{{ item.text }}</div>
+      <div v-if="stacks.length" class="form-item">
+        <a-tag v-for="(text, i) in stacks" :key="i">{{ text }}</a-tag>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +40,14 @@ export default {
     link: {
       type: String,
       default: ''
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    stacks: {
+      type: Array,
+      default: _ => []
     }
   },
   methods: {
@@ -49,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .form-container {
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 
   .form-left {
     flex: 2;
@@ -85,6 +96,12 @@ export default {
     .specialty {
       font-weight: 500;
       color: #ff9b3d;
+    }
+  }
+
+  &.block {
+    @media screen and (max-width: $md) {
+      display: block !important;
     }
   }
 }

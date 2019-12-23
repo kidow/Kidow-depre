@@ -17,6 +17,7 @@ import { mapGetters } from 'vuex'
 export default {
   methods: {
     onGithubOpen() {
+      this.$analytics.logEvent('깃허브 클릭')
       window.open('https://github.com/kidow', '_blank')
     },
     changeLocale() {
@@ -27,7 +28,7 @@ export default {
       date.setTime(date.getTime() + 365 * 60 * 60 * 24 * 1000)
       document.cookie =
         'locale=' + locale + ';expires=' + date.toUTCString() + ';path=/'
-
+      this.$analytics.logEvent('언어 클릭')
       location.reload()
     }
   },

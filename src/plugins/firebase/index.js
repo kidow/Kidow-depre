@@ -27,9 +27,11 @@ export default ({ env }, inject) => {
       measurementId: FIREBASE_MEASUREMENT_ID
     }
     firebase.initializeApp(config)
+    if (process.client) firebase.analytics()
   }
 
   inject('auth', firebase.auth)
   inject('db', firebase.firestore())
   inject('storage', firebase.storage)
+  if (process.client) inject('analytics', firebase.analytics())
 }

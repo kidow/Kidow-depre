@@ -58,8 +58,10 @@ export default {
 
 <style lang="scss">
 .marked {
+  font-size: 18px;
+  margin-bottom: 75px;
   blockquote {
-    border-left: 4px solid $oc-orange-6;
+    border-left: 4px solid $brand-color;
     padding-left: 1rem;
     background: white;
     @media screen and (max-width: $md) {
@@ -90,7 +92,7 @@ export default {
       font-family: 'D2 Coding';
       background: $oc-gray-0;
       padding: 0.25rem;
-      color: $oc-orange-6;
+      color: $brand-color;
       border: 1px solid $oc-gray-2;
       border-radius: 2px;
     }
@@ -100,7 +102,7 @@ export default {
     font-family: 'D2 Coding';
   }
   a {
-    color: $oc-orange-6;
+    color: $brand-color;
     &:hover {
       color: $oc-orange-5;
       text-decoration: underline;
