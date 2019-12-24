@@ -34,7 +34,7 @@
     </template>
 
     <div v-else-if="tab === 2" class="tab-container">
-      <p>{{ $t('about')}}</p>
+      <p>{{ locale === 'ko' ? aboutKo : locale === 'en' ? aboutEn : $t('about')}}</p>
     </div>
 
     <div v-else-if="tab === 3" class="tab-container">
@@ -106,10 +106,13 @@
 
 <script>
 import VueForm from '~/components/Form'
+import { mapGetters } from 'vuex'
 export default {
   data: _ => ({
     posts: [],
-    tab: 1
+    tab: 1,
+    aboutEn: '',
+    aboutKo: ''
   }),
   components: {
     VueForm
@@ -143,7 +146,14 @@ export default {
   },
   async asyncData({ app }) {
     try {
-      const postRef = await app.$db.collection('posts').get()
+      const [postRef, aboutRef] = await Promise.all([
+        app.$db.collection('posts').get(),
+        app.$db
+          .collection('about')
+          .doc(process.env.ABOUT_KEY)
+          .get()
+      ])
+      const { ko, en } = aboutRef.data()
       const posts = []
       postRef.forEach(doc => {
         let post = doc.data()
@@ -151,7 +161,7 @@ export default {
         post.content = app.$cheerio(post.content).pretext
         posts.push(post)
       })
-      return { posts }
+      return { posts, aboutEn: en, aboutKo: ko }
     } catch (err) {
       console.log(err)
     }
@@ -166,6 +176,11 @@ export default {
       else if (val === 3) this.$analytics.logEvent('스택 탭 클릭')
       else if (val === 4) this.$analytics.logEvent('이력 탭 클릭')
     }
+  },
+  computed: {
+    ...mapGetters({
+      locale: 'GET_CURRENT_LOCALE'
+    })
   }
 }
 </script>

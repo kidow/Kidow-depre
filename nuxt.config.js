@@ -9,7 +9,8 @@ const {
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDER_ID,
   FIREBASE_APP_ID,
-  FIREBASE_MEASUREMENT_ID
+  FIREBASE_MEASUREMENT_ID,
+  ABOUT_KEY
 } = process.env
 
 const TITLE = 'Kidow Blog'
@@ -119,7 +120,8 @@ module.exports = {
     FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID,
-    BASE_URL
+    BASE_URL,
+    ABOUT_KEY
   },
   styleResources: {
     scss: ['~assets/scss/index.scss']
