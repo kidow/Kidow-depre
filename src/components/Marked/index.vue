@@ -1,5 +1,5 @@
 <template>
-  <div class="marked" v-html="html" />
+  <div class="marked" v-html="html" ref="marked" @click="imageClick" />
 </template>
 
 <script>
@@ -51,6 +51,9 @@ export default {
         breaks: true,
         sanitize: true
       })
+    },
+    imageClick() {
+      console.log(this.$refs.marked)
     }
   }
 }
@@ -124,9 +127,13 @@ export default {
     text-align: left;
   }
   img {
-    width: 100%;
-    margin: 1rem auto;
+    width: 80%;
+    margin: 3.5rem auto;
     display: block;
+    @media screen and (max-width: $md) {
+      width: 100%;
+      margin: 1.5rem auto;
+    }
   }
 }
 </style>

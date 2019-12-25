@@ -2,7 +2,7 @@
 
 > Nuxt.js, Ant Design Vue
 
-> Firebase (All Free!)
+> Firebase _(All Free!)_
 
 - Server Side Hosting
 - Firestore
