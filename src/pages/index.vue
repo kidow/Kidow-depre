@@ -34,7 +34,8 @@
     </template>
 
     <div v-else-if="tab === 2" class="tab-container">
-      <p>{{ locale === 'ko' ? aboutKo : locale === 'en' ? aboutEn : $t('about')}}</p>
+      <div v-html="locale === 'en' ? aboutEn : aboutKo" class="editor" />
+      <!-- <p>{{ locale === 'ko' ? aboutKo : locale === 'en' ? aboutEn : $t('about')}}</p> -->
     </div>
 
     <div v-else-if="tab === 3" class="tab-container">
@@ -226,6 +227,11 @@ export default {
 .tab-container {
   padding: 34px 0;
   font-weight: 300;
+}
+</style>
+
+<style lang="scss">
+.editor {
   p {
     font-size: 28px;
     line-height: 36px;
