@@ -1,5 +1,5 @@
 <template>
-  <div class="marked" v-html="html" ref="marked" @click="imageClick" />
+  <div class="marked" v-html="html" ref="marked" />
 </template>
 
 <script>
@@ -26,11 +26,14 @@ export default {
       html: ''
     }
   },
-  async mounted() {
-    await Prism.highlightAll()
+  mounted() {
+    Prism.highlightAll()
     this.html = this.markdown
       ? marked(this.markdown, { break: true, sanitize: true })
       : ''
+    this.$nextTick(_ => {
+      Prism.highlightAll()
+    })
   },
   props: {
     markdown: {
@@ -51,9 +54,6 @@ export default {
         breaks: true,
         sanitize: true
       })
-    },
-    imageClick() {
-      console.log(this.$refs.marked)
     }
   }
 }
@@ -91,6 +91,7 @@ export default {
   h4,
   h5,
   p {
+    color: $font-primary-color;
     code {
       font-family: 'D2 Coding';
       background: $oc-gray-0;
