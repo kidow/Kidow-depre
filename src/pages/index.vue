@@ -148,7 +148,10 @@ export default {
   async asyncData({ app }) {
     try {
       const [postRef, aboutRef] = await Promise.all([
-        app.$db.collection('posts').get(),
+        app.$db
+          .collection('posts')
+          .orderBy('createdAt', 'desc')
+          .get(),
         app.$db
           .collection('about')
           .doc(process.env.ABOUT_KEY)

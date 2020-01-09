@@ -84,6 +84,7 @@ export default {
   h3,
   h4 {
     font-weight: 500;
+    margin: 48px 0 24px;
   }
   h1,
   h2,
