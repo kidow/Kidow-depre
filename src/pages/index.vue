@@ -20,13 +20,18 @@
           >
             <img
               alt="thumbnail"
+              v-if="item.thumbnail"
               :src="item.thumbnail"
               slot="cover"
               style="height: 160px; object-fit: cover"
             />
             <a-card-meta>
               <h3 slot="title" class="card-title">{{ item.title }}</h3>
-              <p slot="description" class="card-description">{{ item.content }}</p>
+              <p
+                slot="description"
+                class="card-description"
+                :class="{ 'no-title': !item.thumbnail }"
+              >{{ item.content }}</p>
             </a-card-meta>
           </a-card>
         </a-list-item>
@@ -207,7 +212,7 @@ export default {
 }
 
 .card-title {
-  font-size: 17px;
+  font-size: 18px;
   color: #cecfd0;
   font-weight: bold;
   line-height: 24px;
@@ -225,6 +230,10 @@ export default {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   display: -webkit-box;
+  &.no-title {
+    -webkit-line-clamp: 8;
+    height: 120px;
+  }
 }
 
 .tab-container {
