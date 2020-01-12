@@ -66,10 +66,6 @@ export default {
   blockquote {
     border-left: 4px solid $brand-color;
     padding-left: 1rem;
-    background: white;
-    @media screen and (max-width: $md) {
-      background: $oc-gray-1;
-    }
     margin-left: 0;
     margin-right: 0;
     display: flex;
