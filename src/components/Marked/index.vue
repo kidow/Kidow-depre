@@ -16,6 +16,12 @@ if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
   require('prismjs/components/prism-markdown.min.js')
   require('prismjs/components/prism-scss.min.js')
   require('prismjs/components/prism-sql.min.js')
+  require('prismjs/components/prism-tsx.min.js')
+  require('prismjs/components/prism-yaml.min.js')
+  require('prismjs/components/prism-docker.min.js')
+  require('prismjs/components/prism-git.min.js')
+  require('prismjs/components/prism-graphql.min.js')
+  require('prismjs/components/prism-groovy.min.js')
 }
 import 'prismjs/themes/prism-tomorrow.css'
 import marked from 'marked'

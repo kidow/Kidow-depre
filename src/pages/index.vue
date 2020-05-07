@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 30px">
-    <a-tabs :animated="false" :tabBarGutter="0" @change="key => tab = key">
+    <a-tabs :animated="false" :tabBarGutter="0" @change="key => (tab = key)">
       <a-tab-pane :tab="$t('tab.one')" :key="1" />
       <a-tab-pane :tab="$t('tab.two')" :key="2" />
       <a-tab-pane :tab="$t('tab.three')" :key="3" />
@@ -9,7 +9,10 @@
 
     <template v-if="tab === 1">
       <a-input-search @search="get" />
-      <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="posts">
+      <a-list
+        :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }"
+        :dataSource="posts"
+      >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-card
             :key="index"
@@ -31,7 +34,9 @@
                 slot="description"
                 class="card-description"
                 :class="{ 'no-title': !item.thumbnail }"
-              >{{ item.content }}</p>
+              >
+                {{ item.content }}
+              </p>
             </a-card-meta>
           </a-card>
         </a-list-item>
@@ -47,30 +52,62 @@
       <vue-form
         title="Frontend"
         :list="[
-      { text: 'Nuxt.js', specialty: true }
-      ,{ text: 'React.js', specialty: true },
-      { text: 'Vue.js' },
-      { text: 'Next.js' },
-      { text: 'Redux'},
-      {text:'Mobx'},{text:'GraphQL'}
-      ]"
+          { text: 'Nuxt.js', specialty: true },
+          { text: 'React.js', specialty: true },
+          { text: 'Vue.js' },
+          { text: 'Next.js' },
+          { text: 'Redux' },
+          { text: 'Mobx' },
+          { text: 'GraphQL' }
+        ]"
       />
-      <vue-form title="Backend" :list="[{text:'Node.js',specialty: true}]" />
+      <vue-form
+        title="Backend"
+        :list="[{ text: 'Node.js', specialty: true }, { text: 'TypeORM' }]"
+      />
       <vue-form
         title="Database"
-        :list="[{text:'MySQL',specialty:true},{text:'MongoDB'},{text:'Redis'},{text:'Firestore'}]"
+        :list="[
+          { text: 'MySQL', specialty: true },
+          { text: 'MongoDB' },
+          { text: 'Redis' },
+          { text: 'Firestore' }
+        ]"
       />
       <vue-form
         title="Auth"
-        :list="[{text:'Firebase',specialty:true},{text:'JWT',specialty:true},{text:'OAuth'},{text:'Passport'}]"
+        :list="[
+          { text: 'Firebase', specialty: true },
+          { text: 'JWT', specialty: true },
+          { text: 'OAuth' },
+          { text: 'Passport' }
+        ]"
       />
       <vue-form
         title="Infra"
-        :list="[{text:'AWS',specialty:true},{text:'Firebase',specialty:true},{text:'Heroku'},{text:'Now'}]"
+        :list="[
+          { text: 'AWS', specialty: true },
+          { text: 'Firebase', specialty: true },
+          { text: 'Heroku' },
+          { text: 'Now' }
+        ]"
       />
       <vue-form
         title="Collabo"
-        :list="[{text:'Prettier'},{text:'Slack'},{text:'Trello'},{text:'Jira'}]"
+        :list="[
+          { text: 'Prettier' },
+          { text: 'Slack' },
+          { text: 'Trello' },
+          { text: 'Jira' }
+        ]"
+      />
+      <vue-form
+        title="Etc"
+        :list="[
+          { text: 'TypeScript' },
+          { text: 'StoryBook' },
+          { text: 'Jest' }
+        ]"
       />
     </div>
     <div v-else-if="tab === 4" class="tab-container">
@@ -78,11 +115,23 @@
         :title="$t('linkplanner.name')"
         block
         link="https://www.insunet.co.kr"
-        :stacks="['React.js', 'Next.js', 'Mobx', 'GraphQL', 'Gatsby']"
+        :stacks="[
+          'React',
+          'Next.js',
+          'Mobx',
+          'GraphQL',
+          'Gatsby',
+          'TypeScript',
+          'StoryBook',
+          'Jest'
+        ]"
         :description="`(2019.09.16 ~ ${$t('current')})`"
-        :list="[{
-          text: '보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다.'
-        }]"
+        :list="[
+          {
+            text:
+              '보험 설계사 플랫폼 링크플래너에서 프론트엔드 유지보수 및 신기능 추가를 맡고 있습니다.'
+          }
+        ]"
       />
       <vue-form
         :title="$t('teamblind.name')"
@@ -91,9 +140,11 @@
         block
         :stacks="['Nuxt.js', 'MySQL', 'Node.js', 'AWS']"
         :list="[
-        {
-          text: '직장인 익명 SNS 스타트업 블라인드에서 신사업 프로젝트 밑단부터 런칭까지 맡았고, 프론트엔드를 담당했습니다. 급할 경우 서버쪽 작업도 겸하곤 했습니다.'
-        }]"
+          {
+            text:
+              '직장인 익명 SNS 스타트업 블라인드에서 신사업 프로젝트 밑단부터 런칭까지 맡았고, 프론트엔드를 담당했습니다. 급할 경우 서버쪽 작업도 겸하곤 했습니다.'
+          }
+        ]"
       />
       <vue-form
         :title="$t('gangmom.name')"
@@ -101,9 +152,10 @@
         description="(2019.01.16 ~ 2019.02.15)"
         block
         :list="[
-        {
-          text: '스타트업 강남엄마에서 백엔드 개발 보조 알바를 하였습니다.'
-        }]"
+          {
+            text: '스타트업 강남엄마에서 백엔드 개발 보조 알바를 하였습니다.'
+          }
+        ]"
         :stacks="['MySQL', 'Node.js']"
       />
     </div>
