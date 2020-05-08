@@ -33,6 +33,7 @@
     "marked": "^0.8.0",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
+    "nuxt-start": "2.12.2",
     "open-color": "^1.7.0",
     "prismjs": "^1.17.1",
     "vue-clipboard2": "^0.3.1",
