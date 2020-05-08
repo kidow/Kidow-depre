@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: get list
+        run: ls -al
+
       - name: Initialize
         run: npm install
 
