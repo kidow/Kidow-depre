@@ -9,5 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Initialize
+        run: rm -rf ./package-lock.json && npm install
+
       - name: Run Deploy
         run: npm run deploy

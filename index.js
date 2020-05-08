@@ -23,7 +23,7 @@ function handleRequest(req, res) {
       )
   })
 }
-console.log(1)
+
 app.use(handleRequest)
 exports.webhook = functions.https.onRequest(app)
 exports.webhookAsia = functions.region('asia-northeast1').https.onRequest(app)
