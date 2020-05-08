@@ -36,6 +36,7 @@
     "nuxt-start": "2.12.2",
     "open-color": "^1.7.0",
     "prismjs": "^1.17.1",
+    "remove-markdown": "0.3.0",
     "vue-clipboard2": "^0.3.1",
     "vue-i18n": "^8.15.3",
     "vue-scroll-reveal": "^1.0.11",

@@ -164,6 +164,7 @@
 
 <script>
 import VueForm from '~/components/Form'
+import removeMd from 'remove-markdown'
 import { mapGetters } from 'vuex'
 export default {
   data: _ => ({
@@ -219,7 +220,10 @@ export default {
       postRef.forEach(doc => {
         let post = doc.data()
         post.id = doc.id
-        post.content = app.$cheerio(post.content).pretext
+        post.content = removeMd(post.content, { useImgAltText: false }).slice(
+          0,
+          150
+        )
         posts.push(post)
       })
       return { posts, aboutEn: en, aboutKo: ko }
