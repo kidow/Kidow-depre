@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Initialize
-        run: rm -rf ./package-lock.json && npm install
+        run: npm install
 
       - name: Run Deploy
         run: npm run deploy
