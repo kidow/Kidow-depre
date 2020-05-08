@@ -1,0 +1,13 @@
+name: Firebase Deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Deploy
+        run: npm run deploy
