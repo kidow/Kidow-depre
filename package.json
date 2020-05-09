@@ -45,7 +45,7 @@
   "devDependencies": {
     "firebase-functions-test": "0.2.1",
     "less": "3.11.1",
-    "less-loader": "6.1.0",
+    "less-loader": "5.0.0",
     "node-sass": "4.14.1",
     "sass-loader": "8.0.2"
   },
