@@ -97,16 +97,25 @@ export default {
     color: $font-primary-color;
     code {
       font-family: 'D2 Coding';
-      background: $oc-gray-0;
+      background: #f3f3f3;
       padding: 0.25rem;
       color: $brand-color;
-      border: 1px solid $oc-gray-2;
+      border: 1px solid $oc-gray-0;
       border-radius: 2px;
     }
   }
   code[class*='language-'],
   pre[class*='language-'] {
     font-family: 'D2 Coding';
+  }
+  li {
+    code {
+      background: #f3f3f3;
+      padding: 0.25rem;
+      color: $brand-color;
+      border: 1px solid $oc-gray-0;
+      border-radius: 2px;
+    }
   }
   a {
     color: $brand-color;

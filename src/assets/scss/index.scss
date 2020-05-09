@@ -51,6 +51,9 @@ input[type='radio'] {
 textarea {
   border-width: 1px;
   resize: none;
+  &::placeholder {
+    color: $oc-gray-6;
+  }
 }
 
 h1,
