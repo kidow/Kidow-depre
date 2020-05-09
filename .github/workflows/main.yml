@@ -27,6 +27,9 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
 
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass --force
+
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
