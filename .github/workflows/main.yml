@@ -8,15 +8,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x]
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: get list
-        run: ls -al
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-      - name: Initialize
+      - name: Install dependencies
         run: npm install
+
+      - name: Install Firebase Tools
+        run: npm install --global firebase-tools
 
       - name: Run Deploy
         run: npm run deploy
