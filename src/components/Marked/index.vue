@@ -66,6 +66,15 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin Code {
+  font-family: 'D2 Coding';
+  background: #f3f3f3;
+  padding: 0.25rem;
+  color: $brand-color;
+  border: 1px solid $oc-gray-0;
+  border-radius: 2px;
+}
+
 .marked {
   font-size: 18px;
   margin-bottom: 75px;
@@ -96,12 +105,7 @@ export default {
   p {
     color: $font-primary-color;
     code {
-      font-family: 'D2 Coding';
-      background: #f3f3f3;
-      padding: 0.25rem;
-      color: $brand-color;
-      border: 1px solid $oc-gray-0;
-      border-radius: 2px;
+      @include Code;
     }
   }
   code[class*='language-'],
@@ -110,11 +114,7 @@ export default {
   }
   li {
     code {
-      background: #f3f3f3;
-      padding: 0.25rem;
-      color: $brand-color;
-      border: 1px solid $oc-gray-0;
-      border-radius: 2px;
+      @include Code;
     }
   }
   a {

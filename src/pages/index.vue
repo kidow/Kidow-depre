@@ -93,6 +93,10 @@
         ]"
       />
       <vue-form
+        title="CI/CD"
+        :list="[{ text: 'Github Actions' }, { text: 'Jenkins' }]"
+      />
+      <vue-form
         title="Collabo"
         :list="[
           { text: 'Prettier' },
