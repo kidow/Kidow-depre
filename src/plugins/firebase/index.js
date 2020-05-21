@@ -3,8 +3,9 @@ import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/firestore'
 import 'firebase/analytics'
+import 'firebase/messaging'
 
-export default ({ env }, inject) => {
+export default async ({ env }, inject) => {
   const {
     FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN,
@@ -33,5 +34,8 @@ export default ({ env }, inject) => {
   inject('auth', firebase.auth)
   inject('db', firebase.firestore())
   inject('storage', firebase.storage)
-  if (process.client) inject('analytics', firebase.analytics())
+  if (process.client) {
+    inject('analytics', firebase.analytics())
+    inject('messaging', firebase.messaging())
+  }
 }

@@ -25,6 +25,9 @@ const BASE_URL =
 module.exports = {
   mode: 'universal',
   srcDir: 'src/',
+  server: {
+    port: 3001
+  },
   head: {
     title: TITLE,
     meta: [
@@ -144,6 +147,7 @@ module.exports = {
         'link-color': BRAND_COLOR,
         'text-color': FONT_COLOR
       }
+      config.devtool = 'hidden-source-map'
     }
   }
 }

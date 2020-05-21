@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <h1 class="title" v-scroll-reveal="{ origin: 'bottom', distance: '20px' }">
-      {{ $t('name') }} {{ $t('age')}}
+      {{ $t('name') }} {{ $t('age') }}
       <br />
-      {{ $t('job')}}
+      {{ $t('job') }}
     </h1>
     <nuxt />
     <a-icon type="github" class="github button" @click="onGithubOpen" />
@@ -42,12 +42,12 @@ export default {
   },
   mounted() {
     this.$store.dispatch('auth/SIGN_IN_ANONYMOUS')
+    this.$store.dispatch('firebase/REQUEST_PERMISSION')
   }
 }
 </script>
 
-
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   padding: 150px 0;
