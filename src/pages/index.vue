@@ -185,11 +185,11 @@ export default {
       try {
         let postRef = null
         if (search)
-          postRef = await this.$db
+          postRef = await this.$database
             .collection('posts')
             .where('title', '==', search)
             .get()
-        else postRef = await this.$db.collection('posts').get()
+        else postRef = await this.$database.collection('posts').get()
         const posts = []
         postRef.forEach(doc => {
           const post = doc.data()
@@ -210,11 +210,11 @@ export default {
   async asyncData({ app }) {
     try {
       const [postRef, aboutRef] = await Promise.all([
-        app.$db
+        app.$database
           .collection('posts')
           .orderBy('createdAt', 'desc')
           .get(),
-        app.$db
+        app.$database
           .collection('about')
           .doc(process.env.ABOUT_KEY)
           .get()

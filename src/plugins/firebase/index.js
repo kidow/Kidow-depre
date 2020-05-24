@@ -32,7 +32,7 @@ export default async ({ env }, inject) => {
   }
 
   inject('auth', firebase.auth)
-  inject('db', firebase.firestore())
+  inject('database', firebase.firestore())
   inject('storage', firebase.storage)
   if (process.client) {
     inject('analytics', firebase.analytics())

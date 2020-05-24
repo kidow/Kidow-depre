@@ -7,9 +7,19 @@
         <span>{{ $moment(createdAt).format('YYYY년 MM월 DD일') }}</span>
         <template v-if="!comments.length">
           <a-tooltip :title="`${likes}`" placement="top">
-            <a-icon type="heart" class="button" theme="filled" @click="infiniteLike" />
+            <a-icon
+              type="heart"
+              class="button"
+              theme="filled"
+              @click.prevent="infiniteLike"
+            />
           </a-tooltip>
-          <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
+          <a-icon
+            @click="shareFacebook"
+            type="facebook"
+            theme="filled"
+            class="button"
+          />
           <a-icon @click="onCopy" type="link" class="button" />
         </template>
       </div>
@@ -22,11 +32,21 @@
         :dataSource="comments"
       >
         <div slot="header" class="comment-header">
-          <span>{{ comments.length }}{{ $t('comment.replies')}}</span>
+          <span>{{ comments.length }}{{ $t('comment.replies') }}</span>
           <a-tooltip :title="`${likes}`" placement="top">
-            <a-icon type="heart" class="button" theme="filled" @click="infiniteLike" />
+            <a-icon
+              type="heart"
+              class="button"
+              theme="filled"
+              @click.prevent="infiniteLike"
+            />
           </a-tooltip>
-          <a-icon @click="shareFacebook" type="facebook" theme="filled" class="button" />
+          <a-icon
+            @click="shareFacebook"
+            type="facebook"
+            theme="filled"
+            class="button"
+          />
           <a-icon @click="onCopy" type="link" class="button" />
         </div>
         <a-list-item slot="renderItem" slot-scope="item, index">
@@ -44,7 +64,11 @@
         <a-avatar icon="user" slot="avatar" />
         <div slot="content">
           <a-form-item>
-            <a-textarea :placeholder="$t('comment.placeholder')" :rows="4" v-model="comment" />
+            <a-textarea
+              :placeholder="$t('comment.placeholder')"
+              :rows="4"
+              v-model="comment"
+            />
           </a-form-item>
           <a-form-item>
             <a-button
@@ -52,7 +76,8 @@
               :loading="loading"
               @click="addComment"
               type="link"
-            >{{ $t('comment.add') }}</a-button>
+              >{{ $t('comment.add') }}</a-button
+            >
           </a-form-item>
         </div>
       </a-comment>
@@ -75,8 +100,8 @@ export default {
     if (!params.id) return redirect('/')
     try {
       const [postRef, commentsRef] = await Promise.all([
-        app.$db.collection('posts').doc(app.$sliceParams(params.id)),
-        app.$db
+        app.$database.collection('posts').doc(app.$sliceParams(params.id)),
+        app.$database
           .collection('comments')
           .where('postId', '==', app.$sliceParams(params.id))
           .get()
@@ -129,7 +154,7 @@ export default {
           userId: this.uid,
           createdAt: new Date()
         }
-        await this.$db.collection('comments').add(item)
+        await this.$database.collection('comments').add(item)
         this.comments.push({ content: this.comment })
         this.comment = ''
         this.$message.success(this.$t('comment.success'))
@@ -148,11 +173,10 @@ export default {
       this.$message.success(this.$t('copy.success'))
       this.$analytics.logEvent('링크 복사', location.href)
     },
-    async infiniteLike(e) {
-      e.preventDefault()
+    async infiniteLike() {
       const id = this.$sliceParams(this.$route.params.id)
       try {
-        await this.$db
+        await this.$database
           .collection('posts')
           .doc(id)
           .update({ likes: this.likes + 1 })
@@ -165,7 +189,7 @@ export default {
     async increaseViews() {
       const id = this.$sliceParams(this.$route.params.id)
       try {
-        await this.$db
+        await this.$database
           .collection('posts')
           .doc(id)
           .update({ views: this.views + 1 })

@@ -94,3 +94,4 @@ firebase-messaging-sw.js
 # Firebase
 .firebase
 public
+firebase-private.json
