@@ -8,7 +8,7 @@
       "rm -rf public && mkdir public && mkdir public/.nuxt && cp -r .nuxt/dist/client/ public/.nuxt && cp -a src/static/. public/"
     ],
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",

@@ -26,7 +26,7 @@ module.exports = {
   mode: 'universal',
   srcDir: 'src/',
   server: {
-    port: 3001
+    port: 3004
   },
   head: {
     title: TITLE,
@@ -134,7 +134,8 @@ module.exports = {
     short_name: TITLE,
     start_url: '/?utm_source=homescreen',
     display: 'standalone',
-    background_color: '#17191d'
+    background_color: '#17191d',
+    theme_color: BRAND_COLOR
   },
   workbox: {
     offline: false

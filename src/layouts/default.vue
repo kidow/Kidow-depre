@@ -34,15 +34,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      locale: 'GET_CURRENT_LOCALE'
+      locale: 'GET_CURRENT_LOCALE',
+      uid: 'auth/GET_USER_ID'
     }),
     isMobile() {
       return this.$device.isMobile
     }
   },
-  mounted() {
-    this.$store.dispatch('auth/SIGN_IN_ANONYMOUS')
-    this.$store.dispatch('firebase/REQUEST_PERMISSION')
+  async mounted() {
+    await this.$store.dispatch('auth/SIGN_IN_ANONYMOUS')
+    this.$store.dispatch('firebase/REQUEST_PERMISSION', this.uid)
   }
 }
 </script>

@@ -9,15 +9,14 @@ export const mutations = {
 }
 
 export const actions = {
-  async REQUEST_PERMISSION({ commit }) {
-    console.dir(this.$messaging)
+  async REQUEST_PERMISSION({ commit }, userId) {
     try {
       const permission = await Notification.requestPermission()
-      if (permission !== 'granted') return
+      if (permission !== 'granted')
+        return console.log('permission is not granted!')
       await this.$messaging.requestPermission()
       const token = await this.$messaging.getToken()
-      console.log('token', token)
-      if (!token) return
+      if (!token) return console.log('no token')
       const tokenRef = await this.$database
         .collection('tokens')
         .where('token', '==', token)
@@ -27,12 +26,11 @@ export const actions = {
       } else {
         await this.$database
           .collection('tokens')
-          .add({ token, date: new Date() })
+          .add({ token, date: new Date(), userId })
         commit('SAVE_TOKEN', token)
       }
     } catch (err) {
       console.dir(err)
     }
-  },
-  async SEND_TO_DEVICE() {}
+  }
 }

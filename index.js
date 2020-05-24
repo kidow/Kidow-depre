@@ -35,19 +35,25 @@ app.get('*', handleRequest)
 app.use(handleRequest)
 exports.webhook = functions.https.onRequest(app)
 exports.webhookAsia = functions.region('asia-northeast1').https.onRequest(app)
-exports.sendToDevice = functions.https.onRequest((req, res) => {
-  const { title, token, body } = req.body
-  if (req.method.toUpperCase() !== 'POST')
-    return console.log('please submit by POST method.')
-  if (!message) return console.log('no message.')
-  if (!token) return console.log('no token.')
-  admin
-    .messaging()
-    .sendToDevice(token, {
-      notification: {
-        title,
-        body
-      }
+exports.sendToDevice = functions
+  .region('asia-northeast1')
+  .firestore.document('/comments/{commentId}')
+  .onCreate(async (snap, context) => {
+    const { userId, title } = snap.data()
+    const firestore = admin.firestore()
+    const tokenRef = await firestore
+      .collection('/tokens')
+      .where('userId', '==', userId)
+      .get()
+    const { token } = tokenRef.docs[0].data()
+    if (!token) return console.log('no token.')
+    const notification = {
+      title: '블로그에 댓글이 달렸습니다.',
+      body: title
+    }
+    await admin.messaging().sendToDevice(token, { notification })
+    await firestore.collection('/notifications').add({
+      ...notification,
+      createdAt: new Date()
     })
-    .catch(err => console.log('sendToDevice Error: ', err))
-})
+  })

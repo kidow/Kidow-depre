@@ -120,7 +120,7 @@ export default {
         content: post.content || '',
         createdAt: post.createdAt || '',
         thumbnail: post.thumbnail || '',
-        comments: comments || [],
+        comments,
         likes: post.likes || 0,
         views: post.views || 0
       }
@@ -149,10 +149,11 @@ export default {
         )
         const item = {
           content: this.comment,
-          postId: this.$route.params.id,
+          postId: this.$sliceParams(this.$route.params.id),
           ipv4: data.ip || '',
           userId: this.uid,
-          createdAt: new Date()
+          createdAt: new Date(),
+          title: this.title
         }
         await this.$database.collection('comments').add(item)
         this.comments.push({ content: this.comment })
