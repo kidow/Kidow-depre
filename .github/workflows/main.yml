@@ -1,39 +1,39 @@
-name: Firebase Deploy
+# name: Firebase Deploy
 
-on:
-  push:
-    branches: [master]
+# on:
+#   push:
+#     branches: [master]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
+#     strategy:
+#       matrix:
+#         node-version: [10.x]
 
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+#     steps:
+#       - name: Checkout Repo
+#         uses: actions/checkout@master
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
+#       - name: Install dependencies
+#         run: npm install
 
-      - name: Download Artifact
-        uses: actions/download-artifact@master
+#       - name: Download Artifact
+#         uses: actions/download-artifact@master
 
-      - name: Rebuild node-sass
-        run: npm rebuild node-sass --force
+#       - name: Rebuild node-sass
+#         run: npm rebuild node-sass --force
 
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy
-        env:
-          PROJECT_ID: 'kidow-117fd'
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+#       - name: Deploy to Firebase
+#         uses: w9jds/firebase-action@master
+#         with:
+#           args: deploy
+#         env:
+#           PROJECT_ID: 'kidow-117fd'
+#           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

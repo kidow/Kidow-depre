@@ -94,3 +94,34 @@
     font-size: 14px;
   }
 }
+
+.ant-fullcalendar-date,
+.ant-fullcalendar-month {
+  background: transparent !important;
+  &:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+  }
+}
+
+.ant-select,
+.ant-select-dropdown-menu-item,
+.ant-radio-button-wrapper {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.ant-fullcalendar-value {
+  color: #e5e6e7 !important;
+}
+
+.ant-fullcalendar-content {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ant-modal-body {
+  .ant-badge-status-text {
+    color: rgba(0, 0, 0, 0.85);
+  }
+}

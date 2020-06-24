@@ -5,14 +5,12 @@
       <a-tab-pane :tab="$t('tab.two')" :key="2" />
       <a-tab-pane :tab="$t('tab.three')" :key="3" />
       <a-tab-pane :tab="$t('tab.four')" :key="4" />
+      <a-tab-pane :tab="$t('tab.five')" :key="5" />
     </a-tabs>
 
     <template v-if="tab === 1">
       <a-input-search @search="get" />
-      <a-list
-        :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }"
-        :dataSource="posts"
-      >
+      <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="posts">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a-card
             :key="index"
@@ -34,9 +32,7 @@
                 slot="description"
                 class="card-description"
                 :class="{ 'no-title': !item.thumbnail }"
-              >
-                {{ item.content }}
-              </p>
+              >{{ item.content }}</p>
             </a-card-meta>
           </a-card>
         </a-list-item>
@@ -92,10 +88,7 @@
           { text: 'Now' }
         ]"
       />
-      <vue-form
-        title="CI/CD"
-        :list="[{ text: 'Github Actions' }, { text: 'Jenkins' }]"
-      />
+      <vue-form title="CI/CD" :list="[{ text: 'Github Actions' }, { text: 'Jenkins' }]" />
       <vue-form
         title="Collabo"
         :list="[
@@ -163,6 +156,36 @@
         :stacks="['MySQL', 'Node.js']"
       />
     </div>
+    <div v-else-if="tab === 5" class="tab-container">
+      <a-badge status="processing" text="배운 것" style="margin-right: 4px" />
+      <a-badge status="success" text="한 일" style="margin-right: 4px" />
+      <a-badge status="default" text="아무 생각" />
+      <a-calendar @select="calendarChange">
+        <template slot="dateCellRender" slot-scope="value" class="events">
+          <a-badge
+            v-for="(item,i) in getListData(value)"
+            :key="i"
+            :status="item.type"
+            :text="$device.isMobile ? '' : item.content"
+            style="display: block"
+          />
+        </template>
+        <template slot="monthCellRender" slot-scope="value">
+          <div v-if="getMonthData(value)" class="notes-month">
+            <section>{{ getMonthData(value) }}</section>
+          </div>
+        </template>
+      </a-calendar>
+    </div>
+    <a-modal v-model="logOpen" :title="date" :footer="null" :afterClose="() => date = ''">
+      <a-badge
+        style="display: block"
+        v-for="(item, i) in dayLogs"
+        :key="i"
+        :status="item.type"
+        :text="item.content"
+      />
+    </a-modal>
   </div>
 </template>
 
@@ -175,12 +198,39 @@ export default {
     posts: [],
     tab: 1,
     aboutEn: '',
-    aboutKo: ''
+    aboutKo: '',
+    logOpen: false,
+    date: '',
+    dayLogs: [],
+    logs: []
   }),
   components: {
     VueForm
   },
   methods: {
+    async calendarChange(date) {
+      // const filter = this.logs.filter(item =>
+      //   this.$moment(item.createdAt).isSame(date, 'day')
+      // )
+      // if (!filter.length) return
+      this.date = this.$moment(date).format('YYYY-MM-DD')
+      try {
+        const logRef = await this.$database
+          .collection('logs')
+          .where('createdAt', '==', this.$moment(date).format('YYYY-MM-DD'))
+          .get()
+        if (!logRef.docs.length) return
+        const dayLogs = []
+        logRef.forEach(doc => {
+          const data = doc.data()
+          dayLogs.push(data)
+        })
+        this.dayLogs = dayLogs
+        this.logOpen = true
+      } catch (err) {
+        console.log(err)
+      }
+    },
     async get(search) {
       try {
         let postRef = null
@@ -205,11 +255,22 @@ export default {
     onCardClick(item) {
       this.$analytics.logEvent('카드 클릭', this.title)
       this.$router.push(`/post/${this.$titleUrl(item.title, item.id)}`)
+    },
+    getListData(value) {
+      return this.logs.filter(
+        item => item.createdAt === value.format('YYYY-MM-DD')
+      )
+    },
+    getMonthData(value) {
+      const logs = this.logs.filter(item =>
+        this.$moment(item.createdAt).isSame(value, 'month')
+      )
+      return logs.length ? `${logs.length} 개의 기록` : ''
     }
   },
   async asyncData({ app }) {
     try {
-      const [postRef, aboutRef] = await Promise.all([
+      const [postRef, aboutRef, logRef] = await Promise.all([
         app.$database
           .collection('posts')
           .orderBy('createdAt', 'desc')
@@ -217,7 +278,8 @@ export default {
         app.$database
           .collection('about')
           .doc(process.env.ABOUT_KEY)
-          .get()
+          .get(),
+        app.$database.collection('logs').get()
       ])
       const { ko, en } = aboutRef.data()
       const posts = []
@@ -230,7 +292,12 @@ export default {
         )
         posts.push(post)
       })
-      return { posts, aboutEn: en, aboutKo: ko }
+      const logs = []
+      logRef.forEach(doc => {
+        const log = doc.data()
+        logs.push(log)
+      })
+      return { posts, aboutEn: en, aboutKo: ko, logs }
     } catch (err) {
       console.log(err)
     }
@@ -244,6 +311,10 @@ export default {
       else if (val === 2) this.$analytics.logEvent('소개 탭 클릭')
       else if (val === 3) this.$analytics.logEvent('스택 탭 클릭')
       else if (val === 4) this.$analytics.logEvent('이력 탭 클릭')
+      else if (val === 5) this.$analytics.logEvent('일지 탭 클릭')
+    },
+    logOpen(val) {
+      if (!val) this.dayLogs = []
     }
   },
   computed: {
