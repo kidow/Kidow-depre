@@ -209,10 +209,10 @@ export default {
   },
   methods: {
     async calendarChange(date) {
-      // const filter = this.logs.filter(item =>
-      //   this.$moment(item.createdAt).isSame(date, 'day')
-      // )
-      // if (!filter.length) return
+      const filter = this.logs.filter(item =>
+        this.$moment(item.createdAt).isSame(date, 'day')
+      )
+      if (!filter.length) return
       this.date = this.$moment(date).format('YYYY-MM-DD')
       try {
         const logRef = await this.$database
