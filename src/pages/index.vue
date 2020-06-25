@@ -160,6 +160,7 @@
       <a-badge status="processing" text="배운 것" style="margin-right: 4px" />
       <a-badge status="success" text="한 일" style="margin-right: 4px" />
       <a-badge status="default" text="아무 생각" />
+      <a-badge status="warning" text="노래 추천" />
       <a-calendar @select="calendarChange">
         <template slot="dateCellRender" slot-scope="value" class="events">
           <a-badge
