@@ -26,7 +26,7 @@ module.exports = {
   mode: 'universal',
   srcDir: 'src/',
   server: {
-    port: 3004
+    port: 3005
   },
   head: {
     title: TITLE,
@@ -43,6 +43,11 @@ module.exports = {
         hid: 'description',
         name: 'description',
         content: DESCRIPTION
+      },
+      {
+        'http-equiv': 'Content-Security-Policy',
+        content: 'upgrade-insecure-requests',
+        'content-src': true
       },
 
       // Open Graph
