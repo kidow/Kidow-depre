@@ -6,6 +6,7 @@
       <a-tab-pane :tab="$t('tab.three')" :key="3" />
       <a-tab-pane :tab="$t('tab.four')" :key="4" />
       <a-tab-pane :tab="$t('tab.five')" :key="5" />
+      <a-tab-pane :tab="$t('tab.six')" :key="6" />
     </a-tabs>
 
     <template v-if="tab === 1">
@@ -177,6 +178,26 @@
           </div>
         </template>
       </a-calendar>
+    </div>
+    <div v-else-if="tab === 6" class="tab-container">
+      <vue-form
+        :title="$t('ddtalk.name')"
+        block
+        link="https://ddtalk.tk"
+        :stacks="[
+          'React',
+          'Redux',
+          'Firebase',
+          'TypeScript'
+        ]"
+        :description="`(2020.06.05 ~ 2020.07.04)`"
+        :list="[
+          {
+            text:
+              '개발자들이 코드 및 기술에 관련하여 실시간으로 질문하고 대답할 수 있도록 만든 채팅방 플랫폼입니다.'
+          }
+        ]"
+      />
     </div>
     <a-modal v-model="logOpen" :title="date" :footer="null" :afterClose="() => date = ''">
       <a-badge

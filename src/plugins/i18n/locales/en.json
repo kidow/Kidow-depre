@@ -4,7 +4,8 @@
     "two": "ABOUT",
     "three": "STACKS",
     "four": "CAREERS",
-    "five": "LOGS"
+    "five": "LOGS",
+    "six": "PROJECTS"
   },
   "name": "DW Kim,",
   "age": "26,",
@@ -34,6 +35,10 @@
   "copy": {
     "success": "Copying url is succeed.",
     "error": "Sorry, the url is not copied."
+  },
+  "ddtalk": {
+    "name": "ddtalk",
+    "description": "A chat room platform that allows developers to ask and answer questions in real time regarding code and technology."
   },
   "404": "Not Found.",
   "home": "Home",
