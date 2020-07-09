@@ -114,10 +114,13 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
-  buildModules: ['@nuxtjs/moment'],
+  buildModules: ['@nuxtjs/moment', '@nuxtjs/gtm'],
   moment: {
     defaultLocales: 'ko',
     locales: ['ko']
+  },
+  gtm: {
+    id: 'GTM-NFXGGC2'
   },
   env: {
     FIREBASE_API_KEY,
