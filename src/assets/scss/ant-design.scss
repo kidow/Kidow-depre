@@ -69,6 +69,9 @@
 .ant-list-header,
 .ant-list-item {
   border-color: $font-secondary-color !important;
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .ant-comment-content-detail {

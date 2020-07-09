@@ -11,15 +11,13 @@
 
     <template v-if="tab === 1">
       <a-input-search @search="get" />
-      <a-list :grid="{ gutter: 16, xxl: 4, xl: 3, lg: 2, md: 2, sm: 1, xs: 1 }" :dataSource="posts">
-        <a-list-item slot="renderItem" slot-scope="item, index">
-          <a-card
-            :key="index"
-            hoverable
-            :bordered="false"
-            class="card-container"
-            @click="_ => onCardClick(item)"
-          >
+      <div class="card-list__container">
+        <nuxt-link
+          :to="`/post/${$titleUrl(item.title, item.id)}`"
+          :key="index"
+          v-for="(item, index) in posts"
+        >
+          <a-card hoverable :bordered="false" class="card-container">
             <img
               alt="thumbnail"
               v-if="item.thumbnail"
@@ -36,8 +34,8 @@
               >{{ item.content }}</p>
             </a-card-meta>
           </a-card>
-        </a-list-item>
-      </a-list>
+        </nuxt-link>
+      </div>
     </template>
 
     <div v-else-if="tab === 2" class="tab-container">
@@ -348,6 +346,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-list__container {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    margin: 15px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .card-container {
   width: 320px;
   height: 390px;

@@ -6,7 +6,9 @@
       {{ $t('job') }}
     </h1>
     <nuxt />
-    <a-icon type="github" class="github button" @click="onGithubOpen" />
+    <a href="https://github.com/kidow" target="_blank" class="github button">
+      <a-icon type="github" />
+    </a>
     <a-icon type="global" class="global button" @click="changeLocale" />
     <a-back-top />
   </div>
@@ -16,10 +18,6 @@
 import { mapGetters } from 'vuex'
 export default {
   methods: {
-    onGithubOpen() {
-      this.$analytics.logEvent('깃허브 클릭')
-      window.open('https://github.com/kidow', '_blank')
-    },
     changeLocale() {
       let date = new Date()
       let locale = ''
@@ -80,10 +78,12 @@ export default {
 .github,
 .global {
   position: absolute;
-  top: 20px;
+  top: 0;
+  color: #fff;
   right: 20px;
   font-size: 36px;
   @media screen and (max-width: $md) {
+    top: 10px;
     font-size: 26px;
   }
 }
